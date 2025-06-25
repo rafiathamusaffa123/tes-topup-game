@@ -1,33 +1,38 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Auto Top-Up | Instant Processing</title>
+    <title>AutoTopUp - Top Up Game Instant</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
             --primary: #4361ee;
-            --secondary: #3f37c9;
+            --secondary: #3a0ca3;
             --accent: #4895ef;
-            --dark: #1b263b;
+            --dark: #1a1a2e;
             --light: #f8f9fa;
             --success: #4cc9f0;
             --danger: #f72585;
             --warning: #f8961e;
+            --dana: #00b4d8;
+            --gopay: #00a650;
         }
         
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Poppins', sans-serif;
         }
         
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        
         body {
-            background-color: #f5f7fa;
+            background-color: #f5f7ff;
             color: var(--dark);
             line-height: 1.6;
+            overflow-x: hidden;
         }
         
         .container {
@@ -36,14 +41,16 @@
             padding: 0 20px;
         }
         
+        /* Header */
         header {
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
             padding: 20px 0;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
             position: sticky;
             top: 0;
-            z-index: 100;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
         }
         
         .header-content {
@@ -62,6 +69,7 @@
         .logo i {
             margin-right: 10px;
             font-size: 28px;
+            color: #fff;
         }
         
         nav ul {
@@ -70,7 +78,7 @@
         }
         
         nav ul li {
-            margin-left: 30px;
+            margin-left: 25px;
         }
         
         nav ul li a {
@@ -78,33 +86,36 @@
             text-decoration: none;
             font-weight: 500;
             transition: all 0.3s ease;
-        }
-        
-        nav ul li a:hover {
-            opacity: 0.8;
-        }
-        
-        .hero {
-            padding: 80px 0;
-            text-align: center;
-            background: url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1964&q=80') no-repeat center center/cover;
+            font-size: 15px;
             position: relative;
-            color: white;
         }
         
-        .hero::before {
+        nav ul li a::after {
             content: '';
             position: absolute;
-            top: 0;
+            width: 0;
+            height: 2px;
+            background: white;
+            bottom: -5px;
             left: 0;
+            transition: width 0.3s ease;
+        }
+        
+        nav ul li a:hover::after {
             width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.6);
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 100px 0;
+            text-align: center;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                        url('https://images.unsplash.com/photo-1542751371-adc38448a05e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') no-repeat center center/cover;
+            color: white;
+            position: relative;
         }
         
         .hero-content {
-            position: relative;
-            z-index: 1;
             max-width: 800px;
             margin: 0 auto;
         }
@@ -113,14 +124,16 @@
             font-size: 48px;
             margin-bottom: 20px;
             font-weight: 700;
+            line-height: 1.2;
         }
         
         .hero p {
-            font-size: 20px;
+            font-size: 18px;
             margin-bottom: 30px;
             opacity: 0.9;
         }
         
+        /* Button Styles */
         .btn {
             display: inline-block;
             padding: 12px 30px;
@@ -133,11 +146,12 @@
             cursor: pointer;
             transition: all 0.3s ease;
             font-size: 16px;
+            box-shadow: 0 4px 15px rgba(67, 97, 238, 0.3);
         }
         
         .btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 10px 20px rgba(67, 97, 238, 0.4);
             background-color: var(--primary);
         }
         
@@ -152,6 +166,7 @@
             color: var(--primary);
         }
         
+        /* Features Section */
         .features {
             padding: 80px 0;
             background-color: white;
@@ -166,6 +181,19 @@
             font-size: 36px;
             color: var(--dark);
             margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 3px;
+            background: var(--primary);
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
         }
         
         .section-title p {
@@ -181,12 +209,13 @@
         }
         
         .feature-card {
-            background-color: var(--light);
+            background-color: white;
             padding: 30px;
             border-radius: 10px;
             text-align: center;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.4s ease;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(0, 0, 0, 0.05);
         }
         
         .feature-card:hover {
@@ -198,6 +227,9 @@
             font-size: 50px;
             color: var(--primary);
             margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
         
         .feature-card h3 {
@@ -206,73 +238,65 @@
             color: var(--dark);
         }
         
-        .pricing {
+        /* Games Section */
+        .games {
             padding: 80px 0;
             background-color: #f8f9fa;
         }
         
-        .pricing-grid {
+        .games-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
         }
         
-        .pricing-card {
+        .game-card {
             background-color: white;
             border-radius: 10px;
             overflow: hidden;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            transition: all 0.3s ease;
+            transition: all 0.4s ease;
+            position: relative;
         }
         
-        .pricing-card:hover {
+        .game-card:hover {
             transform: translateY(-10px);
             box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
         }
         
-        .pricing-header {
-            padding: 30px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            text-align: center;
+        .game-img {
+            height: 150px;
+            overflow: hidden;
         }
         
-        .pricing-header h3 {
-            font-size: 24px;
+        .game-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .game-card:hover .game-img img {
+            transform: scale(1.1);
+        }
+        
+        .game-info {
+            padding: 20px;
+        }
+        
+        .game-info h3 {
+            font-size: 18px;
             margin-bottom: 10px;
+            color: var(--dark);
         }
         
-        .pricing-header .price {
-            font-size: 48px;
-            font-weight: 700;
+        .game-info p {
+            color: #6c757d;
+            font-size: 14px;
+            margin-bottom: 15px;
         }
         
-        .pricing-header .price span {
-            font-size: 16px;
-            font-weight: 400;
-        }
-        
-        .pricing-body {
-            padding: 30px;
-        }
-        
-        .pricing-body ul {
-            list-style: none;
-            margin-bottom: 30px;
-        }
-        
-        .pricing-body ul li {
-            padding: 10px 0;
-            border-bottom: 1px solid #eee;
-            display: flex;
-            align-items: center;
-        }
-        
-        .pricing-body ul li i {
-            margin-right: 10px;
-            color: var(--success);
-        }
-        
+        /* Payment Methods */
         .payment-methods {
             padding: 80px 0;
             background-color: white;
@@ -281,17 +305,18 @@
         .payment-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 30px;
+            gap: 25px;
             margin-top: 50px;
         }
         
         .payment-card {
-            background-color: var(--light);
+            background-color: white;
             padding: 30px;
             border-radius: 10px;
             text-align: center;
             transition: all 0.3s ease;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(0, 0, 0, 0.05);
         }
         
         .payment-card:hover {
@@ -305,11 +330,11 @@
         }
         
         .dana {
-            color: #00b4d8;
+            color: var(--dana);
         }
         
         .gopay {
-            color: #00a650;
+            color: var(--gopay);
         }
         
         .payment-card h3 {
@@ -320,8 +345,10 @@
         .payment-card p {
             color: #6c757d;
             margin-bottom: 20px;
+            font-size: 14px;
         }
         
+        /* Order Form */
         .order-form {
             padding: 80px 0;
             background-color: #f8f9fa;
@@ -333,7 +360,8 @@
             background-color: white;
             padding: 40px;
             border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(0, 0, 0, 0.05);
         }
         
         .form-group {
@@ -367,6 +395,7 @@
             width: 100%;
         }
         
+        /* Contact Section */
         .contact {
             padding: 80px 0;
             background-color: white;
@@ -375,17 +404,18 @@
         .contact-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
+            gap: 25px;
             margin-top: 50px;
         }
         
         .contact-card {
-            background-color: var(--light);
+            background-color: white;
             padding: 30px;
             border-radius: 10px;
             text-align: center;
             transition: all 0.3s ease;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(0, 0, 0, 0.05);
         }
         
         .contact-card:hover {
@@ -397,6 +427,9 @@
             font-size: 50px;
             margin-bottom: 20px;
             color: var(--primary);
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
         
         .contact-card h3 {
@@ -408,23 +441,25 @@
             color: var(--dark);
             text-decoration: none;
             transition: all 0.3s ease;
+            font-weight: 500;
         }
         
         .contact-card a:hover {
             color: var(--primary);
         }
         
+        /* Footer */
         footer {
             background-color: var(--dark);
             color: white;
-            padding: 50px 0 20px;
+            padding: 70px 0 30px;
         }
         
         .footer-content {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-            margin-bottom: 40px;
+            gap: 40px;
+            margin-bottom: 50px;
         }
         
         .footer-column h3 {
@@ -444,6 +479,12 @@
             background-color: var(--primary);
         }
         
+        .footer-column p {
+            color: #adb5bd;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+        
         .footer-column ul {
             list-style: none;
         }
@@ -456,6 +497,7 @@
             color: #adb5bd;
             text-decoration: none;
             transition: all 0.3s ease;
+            font-size: 14px;
         }
         
         .footer-column ul li a:hover {
@@ -488,13 +530,42 @@
         
         .copyright {
             text-align: center;
-            padding-top: 20px;
+            padding-top: 30px;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
             color: #adb5bd;
             font-size: 14px;
         }
         
-        /* Responsive styles */
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .fade-in {
+            opacity: 0;
+            animation: fadeIn 0.8s ease forwards;
+        }
+        
+        .delay-1 {
+            animation-delay: 0.2s;
+        }
+        
+        .delay-2 {
+            animation-delay: 0.4s;
+        }
+        
+        .delay-3 {
+            animation-delay: 0.6s;
+        }
+        
+        /* Responsive Styles */
         @media (max-width: 768px) {
             .header-content {
                 flex-direction: column;
@@ -515,7 +586,7 @@
             }
             
             .hero p {
-                font-size: 18px;
+                font-size: 16px;
             }
             
             .btn {
@@ -531,37 +602,13 @@
             .section-title h2 {
                 font-size: 30px;
             }
-        }
-        
-        /* Animation */
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
+            
+            .form-container {
+                padding: 30px 20px;
             }
         }
         
-        .fade-in {
-            animation: fadeIn 1s ease forwards;
-        }
-        
-        .delay-1 {
-            animation-delay: 0.2s;
-        }
-        
-        .delay-2 {
-            animation-delay: 0.4s;
-        }
-        
-        .delay-3 {
-            animation-delay: 0.6s;
-        }
-        
-        /* Smooth scroll */
+        /* Smooth Scroll */
         html {
             scroll-behavior: smooth;
         }
@@ -571,115 +618,99 @@
     <header>
         <div class="container header-content">
             <div class="logo">
-                <i class="fas fa-bolt"></i>
+                <i class="fas fa-gamepad"></i>
                 <span>AutoTopUp</span>
             </div>
             <nav>
                 <ul>
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#features">Features</a></li>
-                    <li><a href="#pricing">Products</a></li>
-                    <li><a href="#payment">Payment</a></li>
+                    <li><a href="#home">Beranda</a></li>
+                    <li><a href="#games">Game</a></li>
+                    <li><a href="#payment">Pembayaran</a></li>
                     <li><a href="#order">Order</a></li>
-                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="#contact">Kontak</a></li>
                 </ul>
             </nav>
         </div>
     </header>
 
     <section class="hero" id="home">
-        <div class="container hero-content">
-            <h1 class="fade-in">Instant Game Top-Up</h1>
-            <p class="fade-in delay-1">Fast, secure, and automated top-up service for your favorite games. Processed instantly after payment confirmation.</p>
-            <div class="fade-in delay-2">
-                <a href="#order" class="btn">Order Now</a>
-                <a href="#features" class="btn btn-outline">Learn More</a>
+        <div class="container hero-content fade-in">
+            <h1>Top Up Game Instant & Otomatis</h1>
+            <p class="delay-1">Proses cepat dalam hitungan detik setelah pembayaran diterima. Support 24/7 siap membantu Anda.</p>
+            <div class="delay-2">
+                <a href="#order" class="btn">Order Sekarang</a>
+                <a href="#games" class="btn btn-outline">Lihat Game</a>
             </div>
         </div>
     </section>
 
-    <section class="features" id="features">
+    <section class="features">
         <div class="container">
             <div class="section-title">
-                <h2>Why Choose Us</h2>
-                <p>We provide the best service with automated processing for instant delivery</p>
+                <h2>Kenapa Memilih Kami?</h2>
+                <p>Kami memberikan pelayanan terbaik untuk pengalaman top up game yang mudah dan cepat</p>
             </div>
             <div class="features-grid">
                 <div class="feature-card fade-in">
                     <div class="feature-icon">
                         <i class="fas fa-bolt"></i>
                     </div>
-                    <h3>Instant Processing</h3>
-                    <p>Your top-up will be processed automatically within seconds after payment confirmation.</p>
+                    <h3>Proses Otomatis</h3>
+                    <p>Top up diproses secara otomatis dalam waktu kurang dari 3 menit setelah pembayaran dikonfirmasi.</p>
                 </div>
                 <div class="feature-card fade-in delay-1">
                     <div class="feature-icon">
                         <i class="fas fa-shield-alt"></i>
                     </div>
-                    <h3>Secure Payment</h3>
-                    <p>All transactions are protected with secure payment gateways and encryption.</p>
+                    <h3>100% Aman</h3>
+                    <p>Transaksi aman dengan sistem pembayaran terpercaya. Data pribadi Anda terlindungi.</p>
                 </div>
                 <div class="feature-card fade-in delay-2">
                     <div class="feature-icon">
                         <i class="fas fa-headset"></i>
                     </div>
-                    <h3>24/7 Support</h3>
-                    <p>Our customer support team is available anytime to assist you with any issues.</p>
+                    <h3>Support 24/7</h3>
+                    <p>Tim support kami siap membantu Anda kapan saja melalui WhatsApp dan Email.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="pricing" id="pricing">
+    <section class="games" id="games">
         <div class="container">
             <div class="section-title">
-                <h2>Popular Products</h2>
-                <p>Choose from our wide selection of game credits and items</p>
+                <h2>Game Populer</h2>
+                <p>Top up diamond, UC, dan item game lainnya dengan harga termurah</p>
             </div>
-            <div class="pricing-grid">
-                <div class="pricing-card fade-in">
-                    <div class="pricing-header">
+            <div class="games-grid">
+                <div class="game-card fade-in">
+                    <div class="game-img">
+                        <img src="https://i.ibb.co/4W2DHYQ/mlbb.jpg" alt="Mobile Legends">
+                    </div>
+                    <div class="game-info">
                         <h3>Mobile Legends</h3>
-                        <div class="price">10K <span>Diamonds</span></div>
-                    </div>
-                    <div class="pricing-body">
-                        <ul>
-                            <li><i class="fas fa-check"></i> 100 Diamonds</li>
-                            <li><i class="fas fa-check"></i> Instant Delivery</li>
-                            <li><i class="fas fa-check"></i> 24/7 Available</li>
-                            <li><i class="fas fa-check"></i> Official Partner</li>
-                        </ul>
-                        <a href="#order" class="btn btn-block">Order Now</a>
+                        <p>Diamond Mobile Legends termurah dengan proses instan</p>
+                        <a href="#order" class="btn">Top Up Sekarang</a>
                     </div>
                 </div>
-                <div class="pricing-card fade-in delay-1">
-                    <div class="pricing-header">
+                <div class="game-card fade-in delay-1">
+                    <div class="game-img">
+                        <img src="https://i.ibb.co/7yqj4wz/freefire.jpg" alt="Free Fire">
+                    </div>
+                    <div class="game-info">
                         <h3>Free Fire</h3>
-                        <div class="price">50K <span>Diamonds</span></div>
-                    </div>
-                    <div class="pricing-body">
-                        <ul>
-                            <li><i class="fas fa-check"></i> 500 Diamonds</li>
-                            <li><i class="fas fa-check"></i> Instant Delivery</li>
-                            <li><i class="fas fa-check"></i> 24/7 Available</li>
-                            <li><i class="fas fa-check"></i> Official Partner</li>
-                        </ul>
-                        <a href="#order" class="btn btn-block">Order Now</a>
+                        <p>Diamond Free Fire dengan harga spesial untuk Anda</p>
+                        <a href="#order" class="btn">Top Up Sekarang</a>
                     </div>
                 </div>
-                <div class="pricing-card fade-in delay-2">
-                    <div class="pricing-header">
-                        <h3>PUBG Mobile</h3>
-                        <div class="price">100K <span>UC</span></div>
+                <div class="game-card fade-in delay-2">
+                    <div class="game-img">
+                        <img src="https://i.ibb.co/0jq6R3k/pubg.jpg" alt="PUBG Mobile">
                     </div>
-                    <div class="pricing-body">
-                        <ul>
-                            <li><i class="fas fa-check"></i> 1000 UC</li>
-                            <li><i class="fas fa-check"></i> Instant Delivery</li>
-                            <li><i class="fas fa-check"></i> 24/7 Available</li>
-                            <li><i class="fas fa-check"></i> Official Partner</li>
-                        </ul>
-                        <a href="#order" class="btn btn-block">Order Now</a>
+                    <div class="game-info">
+                        <h3>PUBG Mobile</h3>
+                        <p>Top up UC PUBG Mobile proses cepat dan aman</p>
+                        <a href="#order" class="btn">Top Up Sekarang</a>
                     </div>
                 </div>
             </div>
@@ -689,33 +720,25 @@
     <section class="payment-methods" id="payment">
         <div class="container">
             <div class="section-title">
-                <h2>Payment Methods</h2>
-                <p>We accept various secure payment methods for your convenience</p>
+                <h2>Metode Pembayaran</h2>
+                <p>Pilih metode pembayaran yang paling mudah untuk Anda</p>
             </div>
             <div class="payment-grid">
                 <div class="payment-card fade-in">
-                    <div class="payment-icon">
-                        <i class="fab fa-cc-visa"></i>
-                    </div>
-                    <h3>Credit Card</h3>
-                    <p>Secure payment with Visa, Mastercard, or JCB</p>
-                    <a href="#order" class="btn">Pay Now</a>
-                </div>
-                <div class="payment-card fade-in delay-1">
                     <div class="payment-icon dana">
                         <i class="fas fa-wallet"></i>
                     </div>
                     <h3>DANA</h3>
-                    <p>Fast and secure payment with DANA e-wallet</p>
-                    <a href="#order" class="btn">Pay Now</a>
+                    <p>Pembayaran mudah via DANA dengan proses instan</p>
+                    <a href="#order" class="btn">Bayar via DANA</a>
                 </div>
-                <div class="payment-card fade-in delay-2">
+                <div class="payment-card fade-in delay-1">
                     <div class="payment-icon gopay">
                         <i class="fas fa-mobile-alt"></i>
                     </div>
                     <h3>GOPAY</h3>
-                    <p>Convenient payment with GoPay mobile wallet</p>
-                    <a href="#order" class="btn">Pay Now</a>
+                    <p>Top up game menggunakan GoPay dalam hitungan detik</p>
+                    <a href="#order" class="btn">Bayar via GOPAY</a>
                 </div>
             </div>
         </div>
@@ -724,15 +747,16 @@
     <section class="order-form" id="order">
         <div class="container">
             <div class="section-title">
-                <h2>Order Now</h2>
-                <p>Fill out the form below to place your order</p>
+                <h2>Form Order</h2>
+                <p>Isi form berikut untuk melakukan top up game</p>
             </div>
             <div class="form-container fade-in">
                 <form id="topupForm" action="https://wa.me/6281910545769" method="get" target="_blank">
+                    <input type="hidden" name="text" value="Halo, saya ingin melakukan top up dengan detail berikut:">
                     <div class="form-group">
-                        <label for="game">Select Game</label>
+                        <label for="game">Pilih Game</label>
                         <select class="form-control" id="game" name="game" required>
-                            <option value="">-- Select Game --</option>
+                            <option value="">-- Pilih Game --</option>
                             <option value="Mobile Legends">Mobile Legends</option>
                             <option value="Free Fire">Free Fire</option>
                             <option value="PUBG Mobile">PUBG Mobile</option>
@@ -741,36 +765,32 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="product">Select Product</label>
+                        <label for="product">Pilih Produk</label>
                         <select class="form-control" id="product" name="product" required>
-                            <option value="">-- Select Product --</option>
-                            <option value="50 Diamonds">50 Diamonds - Rp 10,000</option>
-                            <option value="100 Diamonds">100 Diamonds - Rp 20,000</option>
-                            <option value="250 Diamonds">250 Diamonds - Rp 50,000</option>
-                            <option value="500 Diamonds">500 Diamonds - Rp 100,000</option>
+                            <option value="">-- Pilih Produk --</option>
+                            <option value="50 Diamonds - Rp 10.000">50 Diamonds - Rp 10.000</option>
+                            <option value="100 Diamonds - Rp 20.000">100 Diamonds - Rp 20.000</option>
+                            <option value="250 Diamonds - Rp 50.000">250 Diamonds - Rp 50.000</option>
+                            <option value="500 Diamonds - Rp 100.000">500 Diamonds - Rp 100.000</option>
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="playerId">Player ID</label>
-                        <input type="text" class="form-control" id="playerId" name="playerId" placeholder="Enter your Player ID" required>
+                        <label for="playerId">ID Player</label>
+                        <input type="text" class="form-control" id="playerId" name="playerId" placeholder="Masukkan ID Player" required>
                     </div>
                     <div class="form-group">
                         <label for="nickname">Nickname</label>
-                        <input type="text" class="form-control" id="nickname" name="nickname" placeholder="Enter your in-game nickname" required>
+                        <input type="text" class="form-control" id="nickname" name="nickname" placeholder="Masukkan Nickname Game" required>
                     </div>
                     <div class="form-group">
-                        <label for="payment">Payment Method</label>
+                        <label for="payment">Metode Pembayaran</label>
                         <select class="form-control" id="payment" name="payment" required>
-                            <option value="">-- Select Payment --</option>
+                            <option value="">-- Pilih Pembayaran --</option>
                             <option value="DANA">DANA (081910545769)</option>
                             <option value="GOPAY">GOPAY (081910545769)</option>
                         </select>
                     </div>
-                    <div class="form-group">
-                        <label for="email">Email Address</label>
-                        <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email for receipt" required>
-                    </div>
-                    <button type="submit" class="btn btn-block">Proceed to WhatsApp Payment</button>
+                    <button type="submit" class="btn btn-block">Lanjutkan ke WhatsApp</button>
                 </form>
             </div>
         </div>
@@ -779,8 +799,8 @@
     <section class="contact" id="contact">
         <div class="container">
             <div class="section-title">
-                <h2>Contact Support</h2>
-                <p>We're here to help you with any questions or issues</p>
+                <h2>Kontak Support</h2>
+                <p>Hubungi kami jika Anda membutuhkan bantuan</p>
             </div>
             <div class="contact-grid">
                 <div class="contact-card fade-in">
@@ -788,24 +808,24 @@
                         <i class="fab fa-whatsapp"></i>
                     </div>
                     <h3>WhatsApp</h3>
-                    <p>Fast response via WhatsApp</p>
-                    <a href="https://wa.me/6281910545769" target="_blank">+62 819-1054-5769</a>
+                    <p>Respon cepat via WhatsApp</p>
+                    <a href="https://wa.me/6281910545769" target="_blank">0819-1054-5769</a>
                 </div>
                 <div class="contact-card fade-in delay-1">
                     <div class="contact-icon">
                         <i class="fas fa-envelope"></i>
                     </div>
                     <h3>Email</h3>
-                    <p>Send us an email anytime</p>
+                    <p>Kirim pesan via email</p>
                     <a href="mailto:athastore150@gmail.com">athastore150@gmail.com</a>
                 </div>
                 <div class="contact-card fade-in delay-2">
                     <div class="contact-icon">
                         <i class="fas fa-clock"></i>
                     </div>
-                    <h3>Working Hours</h3>
-                    <p>We're available 24/7</p>
-                    <span>Everyday, 24 hours</span>
+                    <h3>Jam Operasional</h3>
+                    <p>Kami siap membantu Anda</p>
+                    <span>Setiap Hari, 24 Jam</span>
                 </div>
             </div>
         </div>
@@ -816,32 +836,30 @@
             <div class="footer-content">
                 <div class="footer-column">
                     <h3>AutoTopUp</h3>
-                    <p>Providing fast and secure game top-up services with automated processing for instant delivery.</p>
+                    <p>Layanan top up game otomatis dengan proses cepat dan harga termurah. Transaksi aman dan terpercaya.</p>
                     <div class="social-links">
                         <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
                         <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                        <a href="https://wa.me/6281910545769" target="_blank"><i class="fab fa-whatsapp"></i></a>
                     </div>
                 </div>
                 <div class="footer-column">
-                    <h3>Quick Links</h3>
+                    <h3>Menu Cepat</h3>
                     <ul>
-                        <li><a href="#home">Home</a></li>
-                        <li><a href="#features">Features</a></li>
-                        <li><a href="#pricing">Products</a></li>
-                        <li><a href="#payment">Payment</a></li>
+                        <li><a href="#home">Beranda</a></li>
+                        <li><a href="#games">Game</a></li>
+                        <li><a href="#payment">Pembayaran</a></li>
                         <li><a href="#order">Order</a></li>
+                        <li><a href="#contact">Kontak</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
-                    <h3>Support</h3>
+                    <h3>Bantuan</h3>
                     <ul>
-                        <li><a href="https://wa.me/6281910545769" target="_blank">WhatsApp</a></li>
-                        <li><a href="mailto:athastore150@gmail.com">Email Support</a></li>
+                        <li><a href="https://wa.me/6281910545769" target="_blank">Customer Service</a></li>
+                        <li><a href="#">Cara Order</a></li>
+                        <li><a href="#">Panduan Pembayaran</a></li>
                         <li><a href="#">FAQ</a></li>
-                        <li><a href="#">Terms of Service</a></li>
-                        <li><a href="#">Privacy Policy</a></li>
                     </ul>
                 </div>
             </div>
@@ -854,7 +872,7 @@
     <script>
         // Form submission handler
         document.getElementById('topupForm').addEventListener('submit', function(e) {
-            // You can add form validation here if needed
+            // Form validation can be added here if needed
             // The form will automatically redirect to WhatsApp with the order details
         });
         
