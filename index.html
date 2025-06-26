@@ -3,908 +3,109 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AutoTopUp - Top Up Game Instant</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        :root {
-            --primary: #4361ee;
-            --secondary: #3a0ca3;
-            --accent: #4895ef;
-            --dark: #1a1a2e;
-            --light: #f8f9fa;
-            --success: #4cc9f0;
-            --danger: #f72585;
-            --warning: #f8961e;
-            --dana: #00b4d8;
-            --gopay: #00a650;
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-        }
-        
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
-        
-        body {
-            background-color: #f5f7ff;
-            color: var(--dark);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        
-        /* Header */
-        header {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            padding: 20px 0;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            backdrop-filter: blur(10px);
-        }
-        
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .logo {
-            font-size: 24px;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-        }
-        
-        .logo i {
-            margin-right: 10px;
-            font-size: 28px;
-            color: #fff;
-        }
-        
-        nav ul {
-            display: flex;
-            list-style: none;
-        }
-        
-        nav ul li {
-            margin-left: 25px;
-        }
-        
-        nav ul li a {
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            font-size: 15px;
-            position: relative;
-        }
-        
-        nav ul li a::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            background: white;
-            bottom: -5px;
-            left: 0;
-            transition: width 0.3s ease;
-        }
-        
-        nav ul li a:hover::after {
-            width: 100%;
-        }
-        
-        /* Hero Section */
-        .hero {
-            padding: 100px 0;
-            text-align: center;
-            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
-                        url('https://images.unsplash.com/photo-1542751371-adc38448a05e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') no-repeat center center/cover;
-            color: white;
-            position: relative;
-        }
-        
-        .hero-content {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        
-        .hero h1 {
-            font-size: 48px;
-            margin-bottom: 20px;
-            font-weight: 700;
-            line-height: 1.2;
-        }
-        
-        .hero p {
-            font-size: 18px;
-            margin-bottom: 30px;
-            opacity: 0.9;
-        }
-        
-        /* Button Styles */
-        .btn {
-            display: inline-block;
-            padding: 12px 30px;
-            background-color: var(--accent);
-            color: white;
-            border: none;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 16px;
-            box-shadow: 0 4px 15px rgba(67, 97, 238, 0.3);
-        }
-        
-        .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(67, 97, 238, 0.4);
-            background-color: var(--primary);
-        }
-        
-        .btn-outline {
-            background-color: transparent;
-            border: 2px solid white;
-            margin-left: 15px;
-        }
-        
-        .btn-outline:hover {
-            background-color: white;
-            color: var(--primary);
-        }
-        
-        /* Features Section */
-        .features {
-            padding: 80px 0;
-            background-color: white;
-        }
-        
-        .section-title {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-        
-        .section-title h2 {
-            font-size: 36px;
-            color: var(--dark);
-            margin-bottom: 15px;
-            position: relative;
-            display: inline-block;
-        }
-        
-        .section-title h2::after {
-            content: '';
-            position: absolute;
-            width: 50px;
-            height: 3px;
-            background: var(--primary);
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-        
-        .section-title p {
-            color: #6c757d;
-            max-width: 700px;
-            margin: 0 auto;
-        }
-        
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-        
-        .feature-card {
-            background-color: white;
-            padding: 30px;
-            border-radius: 10px;
-            text-align: center;
-            transition: all 0.4s ease;
-            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.05);
-            border: 1px solid rgba(0, 0, 0, 0.05);
-        }
-        
-        .feature-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-        }
-        
-        .feature-icon {
-            font-size: 50px;
-            color: var(--primary);
-            margin-bottom: 20px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        
-        .feature-card h3 {
-            font-size: 22px;
-            margin-bottom: 15px;
-            color: var(--dark);
-        }
-        
-        /* Games Section */
-        .games {
-            padding: 80px 0;
-            background-color: #f8f9fa;
-        }
-        
-        .games-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 25px;
-        }
-        
-        .game-card {
-            background-color: white;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            transition: all 0.4s ease;
-            position: relative;
-        }
-        
-        .game-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-        }
-        
-        .game-img {
-            height: 150px;
-            overflow: hidden;
-        }
-        
-        .game-img img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-        
-        .game-card:hover .game-img img {
-            transform: scale(1.1);
-        }
-        
-        .game-info {
-            padding: 20px;
-        }
-        
-        .game-info h3 {
-            font-size: 18px;
-            margin-bottom: 10px;
-            color: var(--dark);
-        }
-        
-        .game-info p {
-            color: #6c757d;
-            font-size: 14px;
-            margin-bottom: 15px;
-        }
-        
-        /* Payment Methods */
-        .payment-methods {
-            padding: 80px 0;
-            background-color: white;
-        }
-        
-        .payment-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 25px;
-            margin-top: 50px;
-        }
-        
-        .payment-card {
-            background-color: white;
-            padding: 30px;
-            border-radius: 10px;
-            text-align: center;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            border: 1px solid rgba(0, 0, 0, 0.05);
-        }
-        
-        .payment-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-        }
-        
-        .payment-icon {
-            font-size: 50px;
-            margin-bottom: 20px;
-        }
-        
-        .dana {
-            color: var(--dana);
-        }
-        
-        .gopay {
-            color: var(--gopay);
-        }
-        
-        .payment-card h3 {
-            font-size: 20px;
-            margin-bottom: 15px;
-        }
-        
-        .payment-card p {
-            color: #6c757d;
-            margin-bottom: 20px;
-            font-size: 14px;
-        }
-        
-        /* Order Form */
-        .order-form {
-            padding: 80px 0;
-            background-color: #f8f9fa;
-        }
-        
-        .form-container {
-            max-width: 800px;
-            margin: 0 auto;
-            background-color: white;
-            padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.05);
-            border: 1px solid rgba(0, 0, 0, 0.05);
-        }
-        
-        .form-group {
-            margin-bottom: 25px;
-        }
-        
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 500;
-            color: var(--dark);
-        }
-        
-        .form-control {
-            width: 100%;
-            padding: 12px 15px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 16px;
-            transition: all 0.3s ease;
-        }
-        
-        .form-control:focus {
-            border-color: var(--primary);
-            outline: none;
-            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
-        }
-        
-        .btn-block {
-            display: block;
-            width: 100%;
-        }
-        
-        /* Contact Section */
-        .contact {
-            padding: 80px 0;
-            background-color: white;
-        }
-        
-        .contact-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-            margin-top: 50px;
-        }
-        
-        .contact-card {
-            background-color: white;
-            padding: 30px;
-            border-radius: 10px;
-            text-align: center;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            border: 1px solid rgba(0, 0, 0, 0.05);
-        }
-        
-        .contact-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-        }
-        
-        .contact-icon {
-            font-size: 50px;
-            margin-bottom: 20px;
-            color: var(--primary);
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        
-        .contact-card h3 {
-            font-size: 20px;
-            margin-bottom: 15px;
-        }
-        
-        .contact-card a {
-            color: var(--dark);
-            text-decoration: none;
-            transition: all 0.3s ease;
-            font-weight: 500;
-        }
-        
-        .contact-card a:hover {
-            color: var(--primary);
-        }
-        
-        /* Footer */
-        footer {
-            background-color: var(--dark);
-            color: white;
-            padding: 70px 0 30px;
-        }
-        
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-            margin-bottom: 50px;
-        }
-        
-        .footer-column h3 {
-            font-size: 20px;
-            margin-bottom: 20px;
-            position: relative;
-            padding-bottom: 10px;
-        }
-        
-        .footer-column h3::after {
-            content: '';
-            position: absolute;
-            left: 0;
-            bottom: 0;
-            width: 50px;
-            height: 2px;
-            background-color: var(--primary);
-        }
-        
-        .footer-column p {
-            color: #adb5bd;
-            margin-bottom: 20px;
-            font-size: 14px;
-        }
-        
-        .footer-column ul {
-            list-style: none;
-        }
-        
-        .footer-column ul li {
-            margin-bottom: 10px;
-        }
-        
-        .footer-column ul li a {
-            color: #adb5bd;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            font-size: 14px;
-        }
-        
-        .footer-column ul li a:hover {
-            color: white;
-            padding-left: 5px;
-        }
-        
-        .social-links {
-            display: flex;
-            gap: 15px;
-            margin-top: 20px;
-        }
-        
-        .social-links a {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            background-color: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            color: white;
-            transition: all 0.3s ease;
-        }
-        
-        .social-links a:hover {
-            background-color: var(--primary);
-            transform: translateY(-3px);
-        }
-        
-        .copyright {
-            text-align: center;
-            padding-top: 30px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            color: #adb5bd;
-            font-size: 14px;
-        }
-        
-        /* Animations */
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        .fade-in {
-            opacity: 0;
-            animation: fadeIn 0.8s ease forwards;
-        }
-        
-        .delay-1 {
-            animation-delay: 0.2s;
-        }
-        
-        .delay-2 {
-            animation-delay: 0.4s;
-        }
-        
-        .delay-3 {
-            animation-delay: 0.6s;
-        }
-        
-        /* Responsive Styles */
-        @media (max-width: 768px) {
-            .header-content {
-                flex-direction: column;
-                text-align: center;
-            }
-            
-            nav ul {
-                margin-top: 20px;
-                justify-content: center;
-            }
-            
-            nav ul li {
-                margin: 0 10px;
-            }
-            
-            .hero h1 {
-                font-size: 36px;
-            }
-            
-            .hero p {
-                font-size: 16px;
-            }
-            
-            .btn {
-                display: block;
-                width: 100%;
-                margin-bottom: 15px;
-            }
-            
-            .btn-outline {
-                margin-left: 0;
-            }
-            
-            .section-title h2 {
-                font-size: 30px;
-            }
-            
-            .form-container {
-                padding: 30px 20px;
-            }
-        }
-        
-        /* Smooth Scroll */
-        html {
-            scroll-behavior: smooth;
-        }
-    </style>
+    <title>Lapakhuda - Replika</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <header>
-        <div class="container header-content">
+        <div class="container">
             <div class="logo">
-                <i class="fas fa-gamepad"></i>
-                <span>AutoTopUp</span>
+                <a href="#"><img src="logo-lapakhuda.png" alt="Lapakhuda"></a>
             </div>
             <nav>
                 <ul>
-                    <li><a href="#home">Beranda</a></li>
-                    <li><a href="#games">Game</a></li>
-                    <li><a href="#payment">Pembayaran</a></li>
-                    <li><a href="#order">Order</a></li>
-                    <li><a href="#contact">Kontak</a></li>
+                    <li><a href="#">Beranda</a></li>
+                    <li><a href="#">Produk</a></li>
+                    <li><a href="#">Kategori</a></li>
+                    <li><a href="#">Tentang Kami</a></li>
+                    <li><a href="#">Kontak</a></li>
                 </ul>
             </nav>
+            <div class="header-icons">
+                <a href="#"><i class="fas fa-search"></i></a>
+                <a href="#"><i class="fas fa-user"></i></a>
+                <a href="#"><i class="fas fa-shopping-cart"></i></a>
+            </div>
         </div>
     </header>
 
-    <section class="hero" id="home">
-        <div class="container hero-content fade-in">
-            <h1>Top Up Game Instant & Otomatis</h1>
-            <p class="delay-1">Proses cepat dalam hitungan detik setelah pembayaran diterima. Support 24/7 siap membantu Anda.</p>
-            <div class="delay-2">
-                <a href="#order" class="btn">Order Sekarang</a>
-                <a href="#games" class="btn btn-outline">Lihat Game</a>
+    <main>
+        <section class="hero">
+            <div class="container">
+                <h1>Selamat Datang di Lapakhuda</h1>
+                <p>Temukan produk berkualitas dengan harga terbaik</p>
+                <a href="#" class="btn">Belanja Sekarang</a>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section class="features">
-        <div class="container">
-            <div class="section-title">
-                <h2>Kenapa Memilih Kami?</h2>
-                <p>Kami memberikan pelayanan terbaik untuk pengalaman top up game yang mudah dan cepat</p>
-            </div>
-            <div class="features-grid">
-                <div class="feature-card fade-in">
-                    <div class="feature-icon">
-                        <i class="fas fa-bolt"></i>
+        <section class="categories">
+            <div class="container">
+                <h2>Kategori Produk</h2>
+                <div class="category-grid">
+                    <div class="category-item">
+                        <img src="kategori1.jpg" alt="Kategori 1">
+                        <h3>Pakaian</h3>
                     </div>
-                    <h3>Proses Otomatis</h3>
-                    <p>Top up diproses secara otomatis dalam waktu kurang dari 3 menit setelah pembayaran dikonfirmasi.</p>
-                </div>
-                <div class="feature-card fade-in delay-1">
-                    <div class="feature-icon">
-                        <i class="fas fa-shield-alt"></i>
+                    <div class="category-item">
+                        <img src="kategori2.jpg" alt="Kategori 2">
+                        <h3>Aksesoris</h3>
                     </div>
-                    <h3>100% Aman</h3>
-                    <p>Transaksi aman dengan sistem pembayaran terpercaya. Data pribadi Anda terlindungi.</p>
-                </div>
-                <div class="feature-card fade-in delay-2">
-                    <div class="feature-icon">
-                        <i class="fas fa-headset"></i>
+                    <div class="category-item">
+                        <img src="kategori3.jpg" alt="Kategori 3">
+                        <h3>Elektronik</h3>
                     </div>
-                    <h3>Support 24/7</h3>
-                    <p>Tim support kami siap membantu Anda kapan saja melalui WhatsApp dan Email.</p>
+                    <div class="category-item">
+                        <img src="kategori4.jpg" alt="Kategori 4">
+                        <h3>Rumah Tangga</h3>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section class="games" id="games">
-        <div class="container">
-            <div class="section-title">
-                <h2>Game Populer</h2>
-                <p>Top up diamond, UC, dan item game lainnya dengan harga termurah</p>
-            </div>
-            <div class="games-grid">
-                <div class="game-card fade-in">
-                    <div class="game-img">
-                        <img src="https://i.ibb.co/4W2DHYQ/mlbb.jpg" alt="Mobile Legends">
+        <section class="featured-products">
+            <div class="container">
+                <h2>Produk Unggulan</h2>
+                <div class="product-grid">
+                    <!-- Produk akan ditampilkan di sini -->
+                    <div class="product-item">
+                        <img src="produk1.jpg" alt="Produk 1">
+                        <h3>Nama Produk 1</h3>
+                        <p class="price">Rp 250.000</p>
+                        <a href="#" class="btn">Beli Sekarang</a>
                     </div>
-                    <div class="game-info">
-                        <h3>Mobile Legends</h3>
-                        <p>Diamond Mobile Legends termurah dengan proses instan</p>
-                        <a href="#order" class="btn">Top Up Sekarang</a>
-                    </div>
-                </div>
-                <div class="game-card fade-in delay-1">
-                    <div class="game-img">
-                        <img src="https://i.ibb.co/7yqj4wz/freefire.jpg" alt="Free Fire">
-                    </div>
-                    <div class="game-info">
-                        <h3>Free Fire</h3>
-                        <p>Diamond Free Fire dengan harga spesial untuk Anda</p>
-                        <a href="#order" class="btn">Top Up Sekarang</a>
-                    </div>
-                </div>
-                <div class="game-card fade-in delay-2">
-                    <div class="game-img">
-                        <img src="https://i.ibb.co/0jq6R3k/pubg.jpg" alt="PUBG Mobile">
-                    </div>
-                    <div class="game-info">
-                        <h3>PUBG Mobile</h3>
-                        <p>Top up UC PUBG Mobile proses cepat dan aman</p>
-                        <a href="#order" class="btn">Top Up Sekarang</a>
-                    </div>
+                    <!-- Tambahkan lebih banyak produk -->
                 </div>
             </div>
-        </div>
-    </section>
-
-    <section class="payment-methods" id="payment">
-        <div class="container">
-            <div class="section-title">
-                <h2>Metode Pembayaran</h2>
-                <p>Pilih metode pembayaran yang paling mudah untuk Anda</p>
-            </div>
-            <div class="payment-grid">
-                <div class="payment-card fade-in">
-                    <div class="payment-icon dana">
-                        <i class="fas fa-wallet"></i>
-                    </div>
-                    <h3>DANA</h3>
-                    <p>Pembayaran mudah via DANA dengan proses instan</p>
-                    <a href="#order" class="btn">Bayar via DANA</a>
-                </div>
-                <div class="payment-card fade-in delay-1">
-                    <div class="payment-icon gopay">
-                        <i class="fas fa-mobile-alt"></i>
-                    </div>
-                    <h3>GOPAY</h3>
-                    <p>Top up game menggunakan GoPay dalam hitungan detik</p>
-                    <a href="#order" class="btn">Bayar via GOPAY</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="order-form" id="order">
-        <div class="container">
-            <div class="section-title">
-                <h2>Form Order</h2>
-                <p>Isi form berikut untuk melakukan top up game</p>
-            </div>
-            <div class="form-container fade-in">
-                <form id="topupForm" action="https://wa.me/6281910545769" method="get" target="_blank">
-                    <input type="hidden" name="text" value="Halo, saya ingin melakukan top up dengan detail berikut:">
-                    <div class="form-group">
-                        <label for="game">Pilih Game</label>
-                        <select class="form-control" id="game" name="game" required>
-                            <option value="">-- Pilih Game --</option>
-                            <option value="Mobile Legends">Mobile Legends</option>
-                            <option value="Free Fire">Free Fire</option>
-                            <option value="PUBG Mobile">PUBG Mobile</option>
-                            <option value="Valorant">Valorant</option>
-                            <option value="Genshin Impact">Genshin Impact</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="product">Pilih Produk</label>
-                        <select class="form-control" id="product" name="product" required>
-                            <option value="">-- Pilih Produk --</option>
-                            <option value="50 Diamonds - Rp 10.000">50 Diamonds - Rp 10.000</option>
-                            <option value="100 Diamonds - Rp 20.000">100 Diamonds - Rp 20.000</option>
-                            <option value="250 Diamonds - Rp 50.000">250 Diamonds - Rp 50.000</option>
-                            <option value="500 Diamonds - Rp 100.000">500 Diamonds - Rp 100.000</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="playerId">ID Player</label>
-                        <input type="text" class="form-control" id="playerId" name="playerId" placeholder="Masukkan ID Player" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="nickname">Nickname</label>
-                        <input type="text" class="form-control" id="nickname" name="nickname" placeholder="Masukkan Nickname Game" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="payment">Metode Pembayaran</label>
-                        <select class="form-control" id="payment" name="payment" required>
-                            <option value="">-- Pilih Pembayaran --</option>
-                            <option value="DANA">DANA (081910545769)</option>
-                            <option value="GOPAY">GOPAY (081910545769)</option>
-                        </select>
-                    </div>
-                    <button type="submit" class="btn btn-block">Lanjutkan ke WhatsApp</button>
-                </form>
-            </div>
-        </div>
-    </section>
-
-    <section class="contact" id="contact">
-        <div class="container">
-            <div class="section-title">
-                <h2>Kontak Support</h2>
-                <p>Hubungi kami jika Anda membutuhkan bantuan</p>
-            </div>
-            <div class="contact-grid">
-                <div class="contact-card fade-in">
-                    <div class="contact-icon">
-                        <i class="fab fa-whatsapp"></i>
-                    </div>
-                    <h3>WhatsApp</h3>
-                    <p>Respon cepat via WhatsApp</p>
-                    <a href="https://wa.me/6281910545769" target="_blank">0819-1054-5769</a>
-                </div>
-                <div class="contact-card fade-in delay-1">
-                    <div class="contact-icon">
-                        <i class="fas fa-envelope"></i>
-                    </div>
-                    <h3>Email</h3>
-                    <p>Kirim pesan via email</p>
-                    <a href="mailto:athastore150@gmail.com">athastore150@gmail.com</a>
-                </div>
-                <div class="contact-card fade-in delay-2">
-                    <div class="contact-icon">
-                        <i class="fas fa-clock"></i>
-                    </div>
-                    <h3>Jam Operasional</h3>
-                    <p>Kami siap membantu Anda</p>
-                    <span>Setiap Hari, 24 Jam</span>
-                </div>
-            </div>
-        </div>
-    </section>
+        </section>
+    </main>
 
     <footer>
         <div class="container">
             <div class="footer-content">
-                <div class="footer-column">
-                    <h3>AutoTopUp</h3>
-                    <p>Layanan top up game otomatis dengan proses cepat dan harga termurah. Transaksi aman dan terpercaya.</p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="https://wa.me/6281910545769" target="_blank"><i class="fab fa-whatsapp"></i></a>
-                    </div>
+                <div class="footer-section">
+                    <h3>Tentang Lapakhuda</h3>
+                    <p>Lapakhuda adalah platform e-commerce yang menyediakan berbagai produk berkualitas dengan harga terjangkau.</p>
                 </div>
-                <div class="footer-column">
-                    <h3>Menu Cepat</h3>
+                <div class="footer-section">
+                    <h3>Link Cepat</h3>
                     <ul>
-                        <li><a href="#home">Beranda</a></li>
-                        <li><a href="#games">Game</a></li>
-                        <li><a href="#payment">Pembayaran</a></li>
-                        <li><a href="#order">Order</a></li>
-                        <li><a href="#contact">Kontak</a></li>
+                        <li><a href="#">Beranda</a></li>
+                        <li><a href="#">Produk</a></li>
+                        <li><a href="#">Tentang Kami</a></li>
+                        <li><a href="#">Kontak</a></li>
                     </ul>
                 </div>
-                <div class="footer-column">
-                    <h3>Bantuan</h3>
-                    <ul>
-                        <li><a href="https://wa.me/6281910545769" target="_blank">Customer Service</a></li>
-                        <li><a href="#">Cara Order</a></li>
-                        <li><a href="#">Panduan Pembayaran</a></li>
-                        <li><a href="#">FAQ</a></li>
-                    </ul>
+                <div class="footer-section">
+                    <h3>Kontak Kami</h3>
+                    <p><i class="fas fa-envelope"></i> info@lapakhuda.com</p>
+                    <p><i class="fas fa-phone"></i> +62 123 4567 890</p>
                 </div>
             </div>
-            <div class="copyright">
-                <p>&copy; 2023 AutoTopUp. All Rights Reserved.</p>
+            <div class="footer-bottom">
+                <p>&copy; 2023 Lapakhuda. All Rights Reserved.</p>
             </div>
         </div>
     </footer>
-
-    <script>
-        // Form submission handler
-        document.getElementById('topupForm').addEventListener('submit', function(e) {
-            // Form validation can be added here if needed
-            // The form will automatically redirect to WhatsApp with the order details
-        });
-        
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        });
-        
-        // Animation on scroll
-        const fadeElements = document.querySelectorAll('.fade-in');
-        
-        const fadeObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = 1;
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, { threshold: 0.1 });
-        
-        fadeElements.forEach(element => {
-            fadeObserver.observe(element);
-            element.style.opacity = 0;
-            element.style.transform = 'translateY(20px)';
-            element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-        });
-    </script>
 </body>
 </html>
