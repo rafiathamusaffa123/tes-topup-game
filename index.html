@@ -1,1401 +1,1105 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Atha Store - Top Up Game via DANA/GOPAY</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Atha GameShop - Topup Game Online</title>
     <style>
         :root {
-            --primary: #6a0dad; /* Ungu tua */
-            --secondary: #4b0082; /* Ungu gelap */
-            --accent: #1e3a8a; /* Biru tua */
-            --dark: #0f172a;
-            --light: #f8fafc;
-            --success: #10b981;
-            --danger: #ef4444;
-            --warning: #f59e0b;
+            --primary: #9c27b0;
+            --secondary: #4fc3f7;
+            --dark: #6a1b9a;
+            --light: #e1bee7;
+            --text: #333;
+            --white: #fff;
         }
-
+        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
-
-        body {
-            background-color: var(--light);
-            color: var(--dark);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        header {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            padding: 20px 0;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             transition: all 0.3s ease;
         }
-
-        header.scrolled {
-            padding: 15px 0;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        
+        body {
+            background-color: #f5f5f5;
+            color: var(--text);
+            line-height: 1.6;
         }
-
-        .header-container {
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--dark));
+            color: var(--white);
+            padding: 1rem 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .header-content {
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
-
+        
         .logo {
-            font-size: 28px;
-            font-weight: 700;
             display: flex;
             align-items: center;
+            gap: 10px;
         }
-
+        
+        .logo h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+        
         .logo i {
-            margin-right: 10px;
+            font-size: 2rem;
         }
-
+        
         nav ul {
             display: flex;
             list-style: none;
+            gap: 20px;
         }
-
-        nav ul li {
-            margin-left: 30px;
-        }
-
-        nav ul li a {
-            color: white;
+        
+        nav a {
+            color: var(--white);
             text-decoration: none;
             font-weight: 500;
-            transition: all 0.3s ease;
-            position: relative;
+            padding: 5px 10px;
+            border-radius: 5px;
         }
-
-        nav ul li a:hover {
-            opacity: 0.8;
+        
+        nav a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
         }
-
-        nav ul li a::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            background: white;
-            bottom: -5px;
-            left: 0;
-            transition: width 0.3s ease;
-        }
-
-        nav ul li a:hover::after {
-            width: 100%;
-        }
-
+        
         .hero {
-            height: 100vh;
-            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1542751371-adc38448a05e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80') no-repeat center center/cover;
-            display: flex;
-            align-items: center;
+            background: linear-gradient(rgba(156, 39, 176, 0.8), rgba(79, 195, 247, 0.8)), url('https://images.unsplash.com/photo-1542751371-adc38448a05e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            color: var(--white);
+            padding: 4rem 0;
             text-align: center;
-            color: white;
-            padding-top: 80px;
         }
-
-        .hero-content {
-            max-width: 800px;
-            margin: 0 auto;
+        
+        .hero h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
         }
-
-        .hero h1 {
-            font-size: 48px;
-            margin-bottom: 20px;
-            animation: fadeInDown 1s ease;
-        }
-
+        
         .hero p {
-            font-size: 20px;
-            margin-bottom: 30px;
-            animation: fadeInUp 1s ease;
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
         }
-
+        
         .btn {
             display: inline-block;
-            background: var(--primary);
-            color: white;
-            padding: 12px 30px;
+            background-color: var(--secondary);
+            color: var(--text);
+            padding: 0.8rem 1.5rem;
             border-radius: 50px;
             text-decoration: none;
             font-weight: 600;
-            transition: all 0.3s ease;
             border: none;
             cursor: pointer;
-            font-size: 16px;
-            animation: fadeIn 1.5s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
-
+        
         .btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-            background: var(--accent);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
         }
-
-        .btn-outline {
-            background: transparent;
-            border: 2px solid white;
-            margin-left: 15px;
+        
+        .btn-primary {
+            background-color: var(--primary);
+            color: var(--white);
         }
-
-        .btn-outline:hover {
-            background: white;
-            color: var(--primary);
+        
+        .section {
+            padding: 3rem 0;
         }
-
-        .btn-success {
-            background: var(--success);
-        }
-
-        .btn-danger {
-            background: var(--danger);
-        }
-
-        .btn-sm {
-            padding: 8px 15px;
-            font-size: 14px;
-        }
-
-        .services {
-            padding: 100px 0;
-            background-color: white;
-        }
-
+        
         .section-title {
             text-align: center;
-            margin-bottom: 60px;
-        }
-
-        .section-title h2 {
-            font-size: 36px;
-            color: var(--dark);
-            position: relative;
-            display: inline-block;
-            padding-bottom: 15px;
-        }
-
-        .section-title h2::after {
-            content: '';
-            position: absolute;
-            width: 70px;
-            height: 3px;
-            background: var(--primary);
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-
-        .service-card {
-            background: white;
-            border-radius: 10px;
-            padding: 30px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-            transition: all 0.3s ease;
-            text-align: center;
-            border-top: 4px solid var(--primary);
-        }
-
-        .service-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-        }
-
-        .service-card i {
-            font-size: 50px;
+            margin-bottom: 2rem;
             color: var(--primary);
-            margin-bottom: 20px;
         }
-
-        .service-card h3 {
-            font-size: 22px;
-            margin-bottom: 15px;
-            color: var(--dark);
+        
+        .games {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
         }
-
-        .service-card p {
-            color: #666;
-        }
-
-        .order-section {
-            padding: 100px 0;
-            background-color: var(--light);
-        }
-
-        .order-container {
-            background: white;
+        
+        .game-card {
+            background-color: var(--white);
             border-radius: 10px;
-            padding: 40px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-            max-width: 800px;
-            margin: 0 auto;
-            border-top: 4px solid var(--accent);
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
-
-        .order-container h3 {
-            font-size: 24px;
-            margin-bottom: 20px;
-            color: var(--dark);
-            text-align: center;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 500;
-            color: var(--dark);
-        }
-
-        .form-group input, .form-group select, .form-group textarea {
+        
+        .game-card img {
             width: 100%;
-            padding: 12px 15px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 16px;
-            transition: all 0.3s ease;
+            height: 180px;
+            object-fit: cover;
         }
-
-        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
-            border-color: var(--primary);
-            outline: none;
-            box-shadow: 0 0 0 3px rgba(106, 13, 173, 0.2);
+        
+        .game-card-content {
+            padding: 1.5rem;
         }
-
-        .form-group textarea {
-            min-height: 120px;
-            resize: vertical;
-        }
-
-        .payment-methods {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-
-        .payment-method {
-            flex: 1;
-            min-width: 120px;
-            text-align: center;
-            padding: 15px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .payment-method:hover {
-            border-color: var(--primary);
-        }
-
-        .payment-method.selected {
-            border-color: var(--primary);
-            background-color: rgba(106, 13, 173, 0.1);
-        }
-
-        .payment-method i {
-            font-size: 30px;
-            margin-bottom: 10px;
+        
+        .game-card h3 {
+            margin-bottom: 0.5rem;
             color: var(--primary);
         }
-
-        .order-summary {
-            background: #f9f9f9;
-            padding: 20px;
-            border-radius: 5px;
-            margin-top: 30px;
+        
+        .price-list {
+            margin-top: 1rem;
         }
-
-        .order-summary h4 {
-            margin-bottom: 15px;
-            color: var(--dark);
-        }
-
-        .order-summary p {
-            margin-bottom: 5px;
-        }
-
-        .order-summary .total {
-            font-weight: 700;
-            font-size: 18px;
-            margin-top: 10px;
-            color: var(--primary);
-        }
-
-        .contact {
-            padding: 100px 0;
-            background: white;
-        }
-
-        .contact-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-
-        .contact-card {
-            background: var(--light);
-            border-radius: 10px;
-            padding: 30px;
-            text-align: center;
-            transition: all 0.3s ease;
-            border-top: 4px solid var(--accent);
-        }
-
-        .contact-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-        }
-
-        .contact-card i {
-            font-size: 40px;
-            color: var(--primary);
-            margin-bottom: 20px;
-        }
-
-        .contact-card h3 {
-            font-size: 22px;
-            margin-bottom: 15px;
-            color: var(--dark);
-        }
-
-        .contact-card p {
-            color: #666;
-            margin-bottom: 15px;
-        }
-
-        .contact-card a {
-            color: var(--primary);
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s ease;
-        }
-
-        .contact-card a:hover {
-            text-decoration: underline;
-        }
-
-        footer {
-            background: var(--dark);
-            color: white;
-            padding: 60px 0 20px;
-        }
-
-        .footer-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-            margin-bottom: 40px;
-        }
-
-        .footer-col h3 {
-            font-size: 20px;
-            margin-bottom: 20px;
-            position: relative;
-            padding-bottom: 10px;
-        }
-
-        .footer-col h3::after {
-            content: '';
-            position: absolute;
-            width: 50px;
-            height: 2px;
-            background: var(--primary);
-            bottom: 0;
-            left: 0;
-        }
-
-        .footer-col p {
-            margin-bottom: 15px;
-            color: #bbb;
-        }
-
-        .footer-col ul {
-            list-style: none;
-        }
-
-        .footer-col ul li {
-            margin-bottom: 10px;
-        }
-
-        .footer-col ul li a {
-            color: #bbb;
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-
-        .footer-col ul li a:hover {
-            color: white;
-            padding-left: 5px;
-        }
-
-        .social-links {
-            display: flex;
-            gap: 15px;
-        }
-
-        .social-links a {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            color: white;
-            transition: all 0.3s ease;
-        }
-
-        .social-links a:hover {
-            background: var(--primary);
-            transform: translateY(-3px);
-        }
-
-        .copyright {
-            text-align: center;
-            padding-top: 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            color: #bbb;
-            font-size: 14px;
-        }
-
-        /* Modal */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            z-index: 2000;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .modal.show {
-            display: flex;
-            opacity: 1;
-        }
-
-        .modal-content {
-            background: white;
-            border-radius: 10px;
-            max-width: 500px;
-            width: 90%;
-            padding: 30px;
-            position: relative;
-            transform: translateY(-50px);
-            transition: transform 0.3s ease;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        }
-
-        .modal.show .modal-content {
-            transform: translateY(0);
-        }
-
-        .close-modal {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            font-size: 24px;
-            cursor: pointer;
-            color: #666;
-            transition: all 0.3s ease;
-        }
-
-        .close-modal:hover {
-            color: var(--danger);
-        }
-
-        .modal h3 {
-            font-size: 24px;
-            margin-bottom: 20px;
-            color: var(--dark);
-        }
-
-        .modal p {
-            margin-bottom: 15px;
-        }
-
-        .modal .order-details {
-            background: #f9f9f9;
-            padding: 15px;
-            border-radius: 5px;
-            margin: 20px 0;
-        }
-
-        .modal .order-details p {
-            margin-bottom: 8px;
-        }
-
-        .modal .highlight {
-            font-weight: 700;
-            color: var(--primary);
-        }
-
-        /* Admin Panel */
-        .admin-panel {
-            padding: 100px 0;
-            background-color: var(--light);
-        }
-
-        .admin-container {
-            background: white;
-            border-radius: 10px;
-            padding: 40px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-            max-width: 1000px;
-            margin: 0 auto;
-            border-top: 4px solid var(--primary);
-        }
-
-        .admin-container h3 {
-            font-size: 24px;
-            margin-bottom: 20px;
-            color: var(--dark);
-            text-align: center;
-        }
-
-        .admin-actions {
+        
+        .price-item {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 20px;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #eee;
         }
-
-        .search-box {
-            flex: 1;
-            max-width: 300px;
-            position: relative;
+        
+        .order-form {
+            background-color: var(--white);
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
-
-        .search-box input {
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .form-control {
             width: 100%;
-            padding: 10px 15px 10px 40px;
+            padding: 0.8rem;
             border: 1px solid #ddd;
             border-radius: 5px;
-            font-size: 16px;
+            font-size: 1rem;
         }
-
-        .search-box i {
-            position: absolute;
-            left: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #666;
+        
+        .form-control:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(156, 39, 176, 0.2);
         }
-
+        
+        .order-summary {
+            background-color: var(--light);
+            padding: 1.5rem;
+            border-radius: 5px;
+            margin-top: 2rem;
+            display: none;
+        }
+        
+        .order-summary h3 {
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+        
+        .payment-details {
+            margin-top: 2rem;
+            background-color: #f9f9f9;
+            padding: 1.5rem;
+            border-radius: 5px;
+            display: none;
+        }
+        
+        .payment-details h3 {
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+        
+        .confirmation {
+            margin-top: 1rem;
+            padding: 1rem;
+            background-color: #fff8e1;
+            border-left: 4px solid #ffc107;
+            display: none;
+        }
+        
+        .admin-panel {
+            background-color: var(--white);
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            display: none;
+        }
+        
+        .admin-panel h2 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+        
         .orders-table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 20px;
+            margin-top: 1rem;
         }
-
+        
         .orders-table th, .orders-table td {
-            padding: 12px 15px;
+            padding: 0.8rem;
             text-align: left;
             border-bottom: 1px solid #ddd;
         }
-
+        
         .orders-table th {
-            background-color: var(--primary);
-            color: white;
-        }
-
-        .orders-table tr:nth-child(even) {
-            background-color: #f9f9f9;
-        }
-
-        .orders-table tr:hover {
-            background-color: #f1f1f1;
-        }
-
-        .status-pending {
-            color: var(--warning);
-            font-weight: 500;
-        }
-
-        .status-completed {
-            color: var(--success);
-            font-weight: 500;
-        }
-
-        .status-failed {
-            color: var(--danger);
-            font-weight: 500;
-        }
-
-        .action-buttons {
-            display: flex;
-            gap: 5px;
-        }
-
-        /* Login Modal */
-        .login-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            z-index: 2000;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .login-form {
-            background: white;
-            border-radius: 10px;
-            padding: 30px;
-            width: 100%;
-            max-width: 400px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        }
-
-        .login-form h3 {
-            font-size: 24px;
-            margin-bottom: 20px;
+            background-color: var(--light);
             color: var(--dark);
+        }
+        
+        .status-btn {
+            padding: 0.3rem 0.6rem;
+            border-radius: 3px;
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+        }
+        
+        .success {
+            background-color: #c8e6c9;
+            color: #2e7d32;
+        }
+        
+        .danger {
+            background-color: #ffcdd2;
+            color: #c62828;
+        }
+        
+        footer {
+            background: linear-gradient(135deg, var(--dark), var(--primary));
+            color: var(--white);
+            padding: 3rem 0 1rem;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-section a {
+            color: var(--white);
+            text-decoration: none;
+        }
+        
+        .footer-section a:hover {
+            text-decoration: underline;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .social-links a {
+            color: var(--white);
+            font-size: 1.5rem;
+        }
+        
+        .copyright {
             text-align: center;
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
-
-        /* Animations */
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Responsive */
+        
         @media (max-width: 768px) {
-            .header-container {
+            .header-content {
                 flex-direction: column;
-                text-align: center;
+                gap: 1rem;
             }
-
+            
             nav ul {
-                margin-top: 20px;
+                flex-wrap: wrap;
                 justify-content: center;
             }
-
-            nav ul li {
-                margin: 0 10px;
-            }
-
-            .hero h1 {
-                font-size: 36px;
-            }
-
-            .hero p {
-                font-size: 18px;
-            }
-
-            .btn {
-                padding: 10px 20px;
-                font-size: 14px;
-            }
-
-            .section-title h2 {
-                font-size: 30px;
-            }
-
-            .order-container, .admin-container {
-                padding: 30px 20px;
-            }
-
-            .orders-table {
-                display: block;
-                overflow-x: auto;
-            }
-
-            .admin-actions {
-                flex-direction: column;
-                gap: 15px;
-            }
-
-            .search-box {
-                max-width: 100%;
+            
+            .hero h2 {
+                font-size: 2rem;
             }
         }
-
-        @media (max-width: 480px) {
-            .hero h1 {
-                font-size: 28px;
-            }
-
-            .hero p {
-                font-size: 16px;
-            }
-
-            .btn {
-                display: block;
-                width: 100%;
-                margin-bottom: 10px;
-            }
-
-            .btn-outline {
-                margin-left: 0;
-            }
-
-            .payment-method {
-                min-width: 100%;
-            }
-
-            .action-buttons {
-                flex-direction: column;
-            }
+        
+        /* Animasi */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
-
-        /* Smooth scroll */
-        html {
-            scroll-behavior: smooth;
+        
+        .fade-in {
+            animation: fadeIn 0.5s ease forwards;
         }
     </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <header id="header">
-        <div class="container header-container">
+    <header>
+        <div class="container header-content">
             <div class="logo">
                 <i class="fas fa-gamepad"></i>
-                <span>Atha Store</span>
+                <h1>Atha GameShop</h1>
             </div>
             <nav>
                 <ul>
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#services">Layanan</a></li>
+                    <li><a href="#home">Beranda</a></li>
+                    <li><a href="#games">Daftar Game</a></li>
                     <li><a href="#order">Pesan Sekarang</a></li>
                     <li><a href="#contact">Kontak</a></li>
-                    <li><a href="#" id="adminLink">Admin</a></li>
                 </ul>
             </nav>
         </div>
     </header>
 
     <section class="hero" id="home">
-        <div class="container hero-content">
-            <h1>Top Up Game dengan Pembayaran Modern</h1>
-            <p>DANA, GOPAY, dan berbagai metode pembayaran lainnya. Proses cepat, aman, dan terpercaya.</p>
-            <a href="#order" class="btn">Pesan Sekarang</a>
-            <a href="#contact" class="btn btn-outline">Hubungi Kami</a>
+        <div class="container">
+            <h2>Topup Game Murah & Cepat</h2>
+            <p>Isi diamond, UC, VP, dan GC untuk berbagai game favorit Anda dengan harga terjangkau dan proses instan.</p>
+            <a href="#order" class="btn btn-primary">Pesan Sekarang</a>
         </div>
     </section>
 
-    <section class="services" id="services">
+    <section class="section" id="games">
         <div class="container">
-            <div class="section-title">
-                <h2>Layanan Kami</h2>
-            </div>
-            <div class="services-grid">
-                <div class="service-card">
-                    <i class="fas fa-bolt"></i>
-                    <h3>Proses Cepat</h3>
-                    <p>Pesanan Anda akan diproses dalam waktu maksimal 15 menit setelah pembayaran dikonfirmasi.</p>
+            <h2 class="section-title">Daftar Game & Harga</h2>
+            
+            <div class="games">
+                <!-- Free Fire -->
+                <div class="game-card fade-in">
+                    <img src="https://images.unsplash.com/photo-1639762681057-408e52192e55?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Free Fire">
+                    <div class="game-card-content">
+                        <h3>Free Fire</h3>
+                        <div class="price-list">
+                            <div class="price-item">
+                                <span>5 Diamonds</span>
+                                <span>Rp 1.000</span>
+                            </div>
+                            <div class="price-item">
+                                <span>12 Diamonds</span>
+                                <span>Rp 2.000</span>
+                            </div>
+                            <div class="price-item">
+                                <span>50 Diamonds</span>
+                                <span>Rp 7.000</span>
+                            </div>
+                            <div class="price-item">
+                                <span>70 Diamonds</span>
+                                <span>Rp 9.000</span>
+                            </div>
+                            <div class="price-item">
+                                <span>140 Diamonds</span>
+                                <span>Rp 19.000</span>
+                            </div>
+                            <div class="price-item">
+                                <span>210 Diamonds</span>
+                                <span>Rp 28.000</span>
+                            </div>
+                            <div class="price-item">
+                                <span>280 Diamonds</span>
+                                <span>Rp 37.000</span>
+                            </div>
+                            <div class="price-item">
+                                <span>300 Diamonds</span>
+                                <span>Rp 40.000</span>
+                            </div>
+                            <div class="price-item">
+                                <span>355 Diamonds</span>
+                                <span>Rp 46.000</span>
+                            </div>
+                            <div class="price-item">
+                                <span>500 Diamonds</span>
+                                <span>Rp 64.000</span>
+                            </div>
+                            <div class="price-item">
+                                <span>720 Diamonds</span>
+                                <span>Rp 93.000</span>
+                            </div>
+                            <div class="price-item">
+                                <span>1000 Diamonds</span>
+                                <span>Rp 126.000</span>
+                            </div>
+                            <div class="price-item">
+                                <span>2000 Diamonds</span>
+                                <span>Rp 250.000</span>
+                            </div>
+                            <div class="price-item">
+                                <span>Member Mingguan</span>
+                                <span>Rp 28.000</span>
+                            </div>
+                            <div class="price-item">
+                                <span>Member Bulanan</span>
+                                <span>Rp 71.000</span>
+                            </div>
+                            <div class="price-item">
+                                <span>BP Card</span>
+                                <span>Rp 41.000</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="service-card">
-                    <i class="fas fa-shield-alt"></i>
-                    <h3>Aman & Terpercaya</h3>
-                    <p>Transaksi aman dengan sistem yang terjamin keamanannya. Data pribadi Anda terlindungi.</p>
+                
+                <!-- Mobile Legends -->
+                <div class="game-card fade-in">
+                    <img src="https://images.unsplash.com/photo-1639762681419-3980e65f1490?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Mobile Legends">
+                    <div class="game-card-content">
+                        <h3>Mobile Legends</h3>
+                        <div class="price-list">
+                            <div class="price-item">
+                                <span>17 Diamonds</span>
+                                <span>Rp 5.000</span>
+                            </div>
+                            <div class="price-item">
+                                <span>42 Diamonds</span>
+                                <span>Rp 12.000</span>
+                            </div>
+                            <div class="price-item">
+                                <span>85 Diamonds</span>
+                                <span>Rp 24.000</span>
+                            </div>
+                            <div class="price-item">
+                                <span>170 Diamonds</span>
+                                <span>Rp 47.000</span>
+                            </div>
+                            <div class="price-item">
+                                <span>240 Diamonds</span>
+                                <span>Rp 65.000</span>
+                            </div>
+                            <div class="price-item">
+                                <span>345 Diamonds</span>
+                                <span>Rp 93.000</span>
+                            </div>
+                            <div class="price-item">
+                                <span>427 Diamonds</span>
+                                <span>Rp 113.000</span>
+                            </div>
+                            <div class="price-item">
+                                <span>518 Diamonds</span>
+                                <span>Rp 141.000</span>
+                            </div>
+                            <div class="price-item">
+                                <span>712 Diamonds</span>
+                                <span>Rp 188.000</span>
+                            </div>
+                            <div class="price-item">
+                                <span>1230 Diamonds</span>
+                                <span>Rp 317.000</span>
+                            </div>
+                            <div class="price-item">
+                                <span>2380 Diamonds</span>
+                                <span>Rp 600.000</span>
+                            </div>
+                            <div class="price-item">
+                                <span>4020 Diamonds</span>
+                                <span>Rp 985.000</span>
+                            </div>
+                            <div class="price-item">
+                                <span>Weekly Diamond Pass</span>
+                                <span>Rp 27.000</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="service-card">
-                    <i class="fas fa-headset"></i>
-                    <h3>Layanan 24/7</h3>
-                    <p>Tim customer service siap membantu Anda kapan saja melalui WhatsApp dan email.</p>
+                
+                <!-- PUBG -->
+                <div class="game-card fade-in">
+                    <img src="https://images.unsplash.com/photo-1639762681057-408e52192e55?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="PUBG Mobile">
+                    <div class="game-card-content">
+                        <h3>PUBG Mobile</h3>
+                        <div class="price-list">
+                            <div class="price-item">
+                                <span>60 UC</span>
+                                <span>Rp 15.000</span>
+                            </div>
+                            <div class="price-item">
+                                <span>180 UC</span>
+                                <span>Rp 45.000</span>
+                            </div>
+                            <div class="price-item">
+                                <span>385 UC</span>
+                                <span>Rp 89.000</span>
+                            </div>
+                            <div class="price-item">
+                                <span>660 UC</span>
+                                <span>Rp 148.000</span>
+                            </div>
+                            <div class="price-item">
+                                <span>1320 UC</span>
+                                <span>Rp 295.000</span>
+                            </div>
+                            <div class="price-item">
+                                <span>1980 UC</span>
+                                <span>Rp 408.000</span>
+                            </div>
+                            <div class="price-item">
+                                <span>3120 UC</span>
+                                <span>Rp 655.000</span>
+                            </div>
+                            <div class="price-item">
+                                <span>4510 UC</span>
+                                <span>Rp 875.000</span>
+                            </div>
+                            <div class="price-item">
+                                <span>8100 UC</span>
+                                <span>Rp 1.440.000</span>
+                            </div>
+                            <div class="price-item">
+                                <span>Elite Pass</span>
+                                <span>Rp 145.000</span>
+                            </div>
+                            <div class="price-item">
+                                <span>Elite Pass Plus</span>
+                                <span>Rp 369.000</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Valorant -->
+                <div class="game-card fade-in">
+                    <img src="https://images.unsplash.com/photo-1623820919239-0d0ff10797a1?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Valorant">
+                    <div class="game-card-content">
+                        <h3>Valorant</h3>
+                        <div class="price-list">
+                            <div class="price-item">
+                                <span>475 VP</span>
+                                <span>Rp 53.000</span>
+                            </div>
+                            <div class="price-item">
+                                <span>1000 VP</span>
+                                <span>Rp 105.000</span>
+                            </div>
+                            <div class="price-item">
+                                <span>2000 VP</span>
+                                <span>Rp 209.000</span>
+                            </div>
+                            <div class="price-item">
+                                <span>3650 VP</span>
+                                <span>Rp 362.000</span>
+                            </div>
+                            <div class="price-item">
+                                <span>5350 VP</span>
+                                <span>Rp 519.000</span>
+                            </div>
+                            <div class="price-item">
+                                <span>5700 VP</span>
+                                <span>Rp 569.000</span>
+                            </div>
+                            <div class="price-item">
+                                <span>11000 VP</span>
+                                <span>Rp 1.020.000</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Genshin Impact -->
+                <div class="game-card fade-in">
+                    <img src="https://images.unsplash.com/photo-1639762685553-0a80b8dd5f2e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Genshin Impact">
+                    <div class="game-card-content">
+                        <h3>Genshin Impact</h3>
+                        <div class="price-list">
+                            <div class="price-item">
+                                <span>60 GC</span>
+                                <span>Rp 12.000</span>
+                            </div>
+                            <div class="price-item">
+                                <span>330 GC</span>
+                                <span>Rp 61.000</span>
+                            </div>
+                            <div class="price-item">
+                                <span>1090 GC</span>
+                                <span>Rp 171.000</span>
+                            </div>
+                            <div class="price-item">
+                                <span>3880 GC</span>
+                                <span>Rp 602.000</span>
+                            </div>
+                            <div class="price-item">
+                                <span>4970 GC</span>
+                                <span>Rp 802.000</span>
+                            </div>
+                            <div class="price-item">
+                                <span>8080 GC</span>
+                                <span>Rp 1.200.000</span>
+                            </div>
+                            <div class="price-item">
+                                <span>Blessing of the Welkin Moon</span>
+                                <span>Rp 61.000</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="order-section" id="order">
+    <section class="section" id="order">
         <div class="container">
-            <div class="order-container">
-                <h3>Formulir Pemesanan</h3>
-                <form id="orderForm">
+            <h2 class="section-title">Form Pemesanan</h2>
+            
+            <div class="order-form">
+                <form id="topupForm">
                     <div class="form-group">
                         <label for="game">Pilih Game</label>
-                        <select id="game" required>
+                        <select id="game" class="form-control" required>
                             <option value="">-- Pilih Game --</option>
-                            <option value="Mobile Legends">Mobile Legends</option>
                             <option value="Free Fire">Free Fire</option>
+                            <option value="Mobile Legends">Mobile Legends</option>
                             <option value="PUBG Mobile">PUBG Mobile</option>
                             <option value="Valorant">Valorant</option>
                             <option value="Genshin Impact">Genshin Impact</option>
                         </select>
                     </div>
+                    
                     <div class="form-group">
-                        <label for="product">Pilih Produk</label>
-                        <select id="product" required>
-                            <option value="">-- Pilih Produk --</option>
-                            <option value="50 Diamond">50 Diamond</option>
-                            <option value="100 Diamond">100 Diamond</option>
-                            <option value="250 Diamond">250 Diamond</option>
-                            <option value="500 Diamond">500 Diamond</option>
-                            <option value="1000 Diamond">1000 Diamond</option>
+                        <label for="item">Pilih Item/Diamond</label>
+                        <select id="item" class="form-control" required>
+                            <option value="">-- Pilih Item --</option>
+                            <!-- Options will be populated by JavaScript -->
                         </select>
                     </div>
+                    
                     <div class="form-group">
-                        <label for="playerId">ID Game</label>
-                        <input type="text" id="playerId" placeholder="Masukkan ID Game" required>
+                        <label for="playerId">ID Player</label>
+                        <input type="text" id="playerId" class="form-control" placeholder="Masukkan ID Game Anda" required>
                     </div>
+                    
                     <div class="form-group">
-                        <label for="serverId">ID Server (Jika Ada)</label>
-                        <input type="text" id="serverId" placeholder="Masukkan ID Server (opsional)">
+                        <label for="serverId">ID Server (jika ada)</label>
+                        <input type="text" id="serverId" class="form-control" placeholder="Masukkan ID Server (jika ada)">
                     </div>
+                    
                     <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" id="email" placeholder="Masukkan Email" required>
+                        <label for="payment">Metode Pembayaran</label>
+                        <select id="payment" class="form-control" required>
+                            <option value="">-- Pilih Pembayaran --</option>
+                            <option value="DANA">DANA</option>
+                            <option value="GOPAY">GOPAY</option>
+                        </select>
                     </div>
+                    
                     <div class="form-group">
-                        <label>Metode Pembayaran</label>
-                        <div class="payment-methods">
-                            <div class="payment-method" data-method="DANA">
-                                <i class="fas fa-wallet"></i>
-                                <p>DANA</p>
-                            </div>
-                            <div class="payment-method" data-method="GOPAY">
-                                <i class="fas fa-money-bill-wave"></i>
-                                <p>GOPAY</p>
-                            </div>
-                        </div>
-                        <input type="hidden" id="paymentMethod" required>
+                        <label for="whatsapp">Nomor WhatsApp</label>
+                        <input type="text" id="whatsapp" class="form-control" placeholder="Contoh: 08123456789" required>
                     </div>
-                    <div class="form-group">
-                        <label for="notes">Catatan (Opsional)</label>
-                        <textarea id="notes" placeholder="Masukkan catatan tambahan jika ada"></textarea>
-                    </div>
-                    <button type="submit" class="btn">Buat Pesanan</button>
+                    
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">Buat Pesanan</button>
                 </form>
-            </div>
-        </div>
-    </section>
-
-    <section class="admin-panel" id="adminSection" style="display: none;">
-        <div class="container">
-            <div class="admin-container">
-                <h3>Panel Admin - Daftar Pesanan</h3>
-                <div class="admin-actions">
-                    <div class="search-box">
-                        <i class="fas fa-search"></i>
-                        <input type="text" id="searchOrder" placeholder="Cari pesanan...">
+                
+                <div class="order-summary" id="orderSummary">
+                    <h3>Ringkasan Pesanan</h3>
+                    <div id="summaryContent"></div>
+                    <div class="confirmation" id="confirmation">
+                        <p><strong>Pastikan data sudah benar!</strong> Setelah melakukan pembayaran, pesanan tidak dapat dibatalkan.</p>
+                        <button id="confirmBtn" class="btn btn-primary" style="margin-top: 10px;">Ya, Data Sudah Benar</button>
+                        <button id="editBtn" class="btn" style="margin-top: 10px; background-color: #f5f5f5;">Edit Pesanan</button>
                     </div>
-                    <button class="btn btn-danger" id="logoutBtn">Logout</button>
                 </div>
-                <table class="orders-table">
-                    <thead>
-                        <tr>
-                            <th>No. Pesanan</th>
-                            <th>Game</th>
-                            <th>Produk</th>
-                            <th>ID Game</th>
-                            <th>ID Server</th>
-                            <th>Email</th>
-                            <th>Metode</th>
-                            <th>Status</th>
-                            <th>Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody id="ordersList">
-                        <!-- Orders will be inserted here by JavaScript -->
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </section>
-
-    <section class="contact" id="contact">
-        <div class="container">
-            <div class="section-title">
-                <h2>Hubungi Kami</h2>
-            </div>
-            <div class="contact-grid">
-                <div class="contact-card">
-                    <i class="fab fa-whatsapp"></i>
-                    <h3>WhatsApp</h3>
-                    <p>Layanan pelanggan 24/7 melalui WhatsApp</p>
-                    <a href="https://wa.me/6281910545769" target="_blank">081910545769</a>
-                </div>
-                <div class="contact-card">
-                    <i class="fas fa-envelope"></i>
-                    <h3>Email</h3>
-                    <p>Kirim pengaduan atau pertanyaan melalui email</p>
-                    <a href="mailto:athastore150@gmail.com">athastore150@gmail.com</a>
-                </div>
-                <div class="contact-card">
-                    <i class="fas fa-info-circle"></i>
-                    <h3>Informasi Pembayaran</h3>
-                    <p>Nomor DANA & GOPAY:</p>
-                    <p class="highlight">081910545769</p>
+                
+                <div class="payment-details" id="paymentDetails">
+                    <h3>Instruksi Pembayaran</h3>
+                    <p>Silakan transfer ke salah satu nomor berikut:</p>
+                    <p><strong>DANA/GOPAY:</strong> 081910545769</p>
+                    <p><strong>Atas Nama:</strong> Atha Store</p>
+                    <p>Total yang harus dibayar: <strong id="totalPayment"></strong></p>
+                    <p>Setelah transfer, segera kirim bukti pembayaran ke WhatsApp Admin: <strong>081910545769</strong> dengan format:</p>
+                    <div style="background-color: #f0f0f0; padding: 10px; border-radius: 5px; margin-top: 10px;">
+                        <p>Nama: Customer</p>
+                        <p>Game: [Nama Game]</p>
+                        <p>Item: [Item yang dibeli]</p>
+                        <p>ID Player: [ID Anda]</p>
+                        <p>Nominal Transfer: [Jumlah Transfer]</p>
+                    </div>
+                    <p style="margin-top: 15px; font-weight: bold;">Pesanan akan diproses setelah pembayaran dikonfirmasi.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <footer>
+    <section class="section" id="admin" style="display: none;">
         <div class="container">
-            <div class="footer-grid">
-                <div class="footer-col">
+            <div class="admin-panel" id="adminPanel">
+                <h2>Admin Panel - Atha GameShop</h2>
+                <div class="form-group">
+                    <input type="password" id="adminPassword" class="form-control" placeholder="Masukkan Password Admin">
+                    <button id="loginAdmin" class="btn btn-primary" style="margin-top: 10px;">Login</button>
+                </div>
+                
+                <div id="adminContent" style="display: none;">
+                    <h3>Daftar Pesanan</h3>
+                    <table class="orders-table">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Game</th>
+                                <th>Item</th>
+                                <th>ID Player</th>
+                                <th>ID Server</th>
+                                <th>WhatsApp</th>
+                                <th>Payment</th>
+                                <th>Total</th>
+                                <th>Status</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ordersList">
+                            <!-- Orders will be populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
                     <h3>Tentang Kami</h3>
-                    <p>Atha Store menyediakan layanan top up game dengan proses cepat dan aman menggunakan metode pembayaran modern seperti DANA dan GOPAY.</p>
+                    <p>Atha GameShop menyediakan layanan topup game dengan harga terjangkau dan proses cepat. Kami berkomitmen untuk memberikan pelayanan terbaik kepada pelanggan.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Kontak & Layanan</h3>
+                    <ul>
+                        <li><i class="fas fa-phone-alt"></i> WhatsApp: 081910545769</li>
+                        <li><i class="fas fa-envelope"></i> Email: athastore150@gmail.com</li>
+                        <li><i class="fas fa-money-bill-wave"></i> Pembayaran: DANA, GOPAY</li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Sosial Media</h3>
                     <div class="social-links">
                         <a href="https://www.tiktok.com/@atha.bisnis" target="_blank"><i class="fab fa-tiktok"></i></a>
                         <a href="https://www.instagram.com/atha_store01" target="_blank"><i class="fab fa-instagram"></i></a>
                     </div>
                 </div>
-                <div class="footer-col">
-                    <h3>Layanan</h3>
-                    <ul>
-                        <li><a href="#order">Top Up Game</a></li>
-                        <li><a href="#contact">Layanan Pelanggan</a></li>
-                        <li><a href="#contact">Pengaduan</a></li>
-                    </ul>
-                </div>
-                <div class="footer-col">
+                
+                <div class="footer-section">
                     <h3>Informasi</h3>
                     <ul>
-                        <li><a href="#" id="termsBtn">Syarat & Ketentuan</a></li>
-                        <li><a href="#" id="privacyBtn">Kebijakan Privasi</a></li>
-                        <li><a href="#contact">Metode Pembayaran</a></li>
+                        <li><a href="#terms">Syarat & Ketentuan</a></li>
+                        <li><a href="#privacy">Kebijakan Privasi</a></li>
+                        <li><a href="#faq">FAQ</a></li>
                     </ul>
                 </div>
             </div>
+            
             <div class="copyright">
-                <p>&copy; 2023 Atha Store. All Rights Reserved.</p>
+                <p>&copy; 2023 Atha GameShop. All Rights Reserved.</p>
             </div>
         </div>
     </footer>
 
-    <!-- Order Summary Modal -->
-    <div class="modal" id="orderModal">
-        <div class="modal-content">
-            <span class="close-modal">&times;</span>
-            <h3>Pesanan Anda</h3>
-            <div class="order-details" id="modalOrderDetails">
-                <!-- Order details will be inserted here -->
-            </div>
-            <p>Silakan transfer ke nomor <span class="highlight" id="modalPaymentNumber"></span> (<span id="modalPaymentMethod"></span>)</p>
-            <p>Total yang harus dibayar: <span class="highlight" id="modalTotal"></span></p>
-            <p>Setelah transfer, segera kirim bukti transfer ke WhatsApp Admin:</p>
-            <a href="https://wa.me/6281910545769" class="btn" target="_blank" id="whatsappLink">Kirim Bukti ke WhatsApp</a>
-        </div>
-    </div>
-
-    <!-- Terms Modal -->
-    <div class="modal" id="termsModal">
-        <div class="modal-content">
-            <span class="close-modal">&times;</span>
-            <h3>Syarat & Ketentuan</h3>
-            <p>Dengan menggunakan layanan Atha Store, Anda setuju dengan syarat dan ketentuan berikut:</p>
-            <ol>
-                <li>Pemesan wajib mengisi data dengan benar sesuai akun game.</li>
-                <li>Proses top up membutuhkan waktu maksimal 15 menit setelah pembayaran dikonfirmasi.</li>
-                <li>Pemesan wajib mengirimkan bukti transfer yang valid.</li>
-                <li>Atha Store tidak bertanggung jawab atas kesalahan pengisian data oleh pemesan.</li>
-                <li>Pembatalan pesanan setelah pembayaran tidak dapat dilakukan.</li>
-                <li>Harga dapat berubah sewaktu-waktu tanpa pemberitahuan sebelumnya.</li>
-            </ol>
-        </div>
-    </div>
-
-    <!-- Privacy Modal -->
-    <div class="modal" id="privacyModal">
-        <div class="modal-content">
-            <span class="close-modal">&times;</span>
-            <h3>Kebijakan Privasi</h3>
-            <p>Atha Store menghargai privasi Anda dan berkomitmen untuk melindungi data pribadi Anda:</p>
-            <ol>
-                <li>Data pribadi yang dikumpulkan hanya digunakan untuk keperluan pemrosesan pesanan.</li>
-                <li>Kami tidak menjual atau membagikan data Anda kepada pihak ketiga.</li>
-                <li>Data pembayaran disimpan secara aman dan terenkripsi.</li>
-                <li>Anda dapat meminta penghapusan data pribadi Anda melalui kontak yang tersedia.</li>
-                <li>Kami menggunakan cookies untuk meningkatkan pengalaman pengguna.</li>
-            </ol>
-        </div>
-    </div>
-
-    <!-- Login Modal -->
-    <div class="modal login-modal" id="loginModal">
-        <div class="login-form">
-            <h3>Login Admin</h3>
-            <div class="form-group">
-                <label for="adminUsername">Username</label>
-                <input type="text" id="adminUsername" placeholder="Masukkan username admin">
-            </div>
-            <div class="form-group">
-                <label for="adminPassword">Password</label>
-                <input type="password" id="adminPassword" placeholder="Masukkan password">
-            </div>
-            <button class="btn" id="loginBtn">Login</button>
-        </div>
-    </div>
-
     <script>
-        // Header scroll effect
-        window.addEventListener('scroll', function() {
-            const header = document.getElementById('header');
-            if (window.scrollY > 50) {
-                header.classList.add('scrolled');
-            } else {
-                header.classList.remove('scrolled');
-            }
-        });
-
-        // Payment method selection
-        const paymentMethods = document.querySelectorAll('.payment-method');
-        const paymentMethodInput = document.getElementById('paymentMethod');
-
-        paymentMethods.forEach(method => {
-            method.addEventListener('click', function() {
-                paymentMethods.forEach(m => m.classList.remove('selected'));
-                this.classList.add('selected');
-                paymentMethodInput.value = this.getAttribute('data-method');
-            });
-        });
-
-        // Form submission
-        const orderForm = document.getElementById('orderForm');
-        const orderModal = document.getElementById('orderModal');
-        const modalOrderDetails = document.getElementById('modalOrderDetails');
-        const modalPaymentNumber = document.getElementById('modalPaymentNumber');
-        const modalPaymentMethod = document.getElementById('modalPaymentMethod');
-        const modalTotal = document.getElementById('modalTotal');
-        const whatsappLink = document.getElementById('whatsappLink');
-        const ordersList = document.getElementById('ordersList');
-        const adminSection = document.getElementById('adminSection');
-        const adminLink = document.getElementById('adminLink');
-        const loginModal = document.getElementById('loginModal');
-        const loginBtn = document.getElementById('loginBtn');
-        const logoutBtn = document.getElementById('logoutBtn');
-        const searchOrder = document.getElementById('searchOrder');
-
-        // Store orders in memory (in a real app, this would be a database)
-        let orders = [];
-        let isAdminLoggedIn = false;
-
-        // Sample admin credentials (in a real app, use proper authentication)
-        const adminCredentials = {
-            username: "admin",
-            password: "athastore123"
+        // Game items data
+        const gameItems = {
+            "Free Fire": [
+                { name: "5 Diamonds", price: 1000 },
+                { name: "12 Diamonds", price: 2000 },
+                { name: "50 Diamonds", price: 7000 },
+                { name: "70 Diamonds", price: 9000 },
+                { name: "140 Diamonds", price: 19000 },
+                { name: "210 Diamonds", price: 28000 },
+                { name: "280 Diamonds", price: 37000 },
+                { name: "300 Diamonds", price: 40000 },
+                { name: "355 Diamonds", price: 46000 },
+                { name: "500 Diamonds", price: 64000 },
+                { name: "720 Diamonds", price: 93000 },
+                { name: "1000 Diamonds", price: 126000 },
+                { name: "2000 Diamonds", price: 250000 },
+                { name: "Member Mingguan", price: 28000 },
+                { name: "Member Bulanan", price: 71000 },
+                { name: "BP Card", price: 41000 }
+            ],
+            "Mobile Legends": [
+                { name: "17 Diamonds", price: 5000 },
+                { name: "42 Diamonds", price: 12000 },
+                { name: "85 Diamonds", price: 24000 },
+                { name: "170 Diamonds", price: 47000 },
+                { name: "240 Diamonds", price: 65000 },
+                { name: "345 Diamonds", price: 93000 },
+                { name: "427 Diamonds", price: 113000 },
+                { name: "518 Diamonds", price: 141000 },
+                { name: "712 Diamonds", price: 188000 },
+                { name: "1230 Diamonds", price: 317000 },
+                { name: "2380 Diamonds", price: 600000 },
+                { name: "4020 Diamonds", price: 985000 },
+                { name: "Weekly Diamond Pass", price: 27000 }
+            ],
+            "PUBG Mobile": [
+                { name: "60 UC", price: 15000 },
+                { name: "180 UC", price: 45000 },
+                { name: "385 UC", price: 89000 },
+                { name: "660 UC", price: 148000 },
+                { name: "1320 UC", price: 295000 },
+                { name: "1980 UC", price: 408000 },
+                { name: "3120 UC", price: 655000 },
+                { name: "4510 UC", price: 875000 },
+                { name: "8100 UC", price: 1440000 },
+                { name: "Elite Pass", price: 145000 },
+                { name: "Elite Pass Plus", price: 369000 }
+            ],
+            "Valorant": [
+                { name: "475 VP", price: 53000 },
+                { name: "1000 VP", price: 105000 },
+                { name: "2000 VP", price: 209000 },
+                { name: "3650 VP", price: 362000 },
+                { name: "5350 VP", price: 519000 },
+                { name: "5700 VP", price: 569000 },
+                { name: "11000 VP", price: 1020000 }
+            ],
+            "Genshin Impact": [
+                { name: "60 GC", price: 12000 },
+                { name: "330 GC", price: 61000 },
+                { name: "1090 GC", price: 171000 },
+                { name: "3880 GC", price: 602000 },
+                { name: "4970 GC", price: 802000 },
+                { name: "8080 GC", price: 1200000 },
+                { name: "Blessing of the Welkin Moon", price: 61000 }
+            ]
         };
 
-        // Admin login functionality
-        adminLink.addEventListener('click', function(e) {
-            e.preventDefault();
-            if (isAdminLoggedIn) {
-                adminSection.style.display = 'block';
-                window.scrollTo({
-                    top: adminSection.offsetTop - 80,
-                    behavior: 'smooth'
+        // Orders data
+        let orders = JSON.parse(localStorage.getItem('athaGameshopOrders')) || [];
+        
+        // Admin password
+        const ADMIN_PASSWORD = "admin123"; // Ganti dengan password yang lebih aman di production
+        
+        // DOM elements
+        const gameSelect = document.getElementById('game');
+        const itemSelect = document.getElementById('item');
+        const topupForm = document.getElementById('topupForm');
+        const orderSummary = document.getElementById('orderSummary');
+        const summaryContent = document.getElementById('summaryContent');
+        const confirmation = document.getElementById('confirmation');
+        const paymentDetails = document.getElementById('paymentDetails');
+        const totalPayment = document.getElementById('totalPayment');
+        const confirmBtn = document.getElementById('confirmBtn');
+        const editBtn = document.getElementById('editBtn');
+        const adminPanel = document.getElementById('adminPanel');
+        const adminPassword = document.getElementById('adminPassword');
+        const loginAdmin = document.getElementById('loginAdmin');
+        const adminContent = document.getElementById('adminContent');
+        const ordersList = document.getElementById('ordersList');
+        
+        // Populate item select based on game selection
+        gameSelect.addEventListener('change', function() {
+            const selectedGame = this.value;
+            itemSelect.innerHTML = '<option value="">-- Pilih Item --</option>';
+            
+            if (selectedGame && gameItems[selectedGame]) {
+                gameItems[selectedGame].forEach(item => {
+                    const option = document.createElement('option');
+                    option.value = item.name;
+                    option.textContent = `${item.name} - Rp ${item.price.toLocaleString('id-ID')}`;
+                    option.dataset.price = item.price;
+                    itemSelect.appendChild(option);
                 });
-            } else {
-                loginModal.classList.add('show');
             }
         });
-
-        loginBtn.addEventListener('click', function() {
-            const username = document.getElementById('adminUsername').value;
-            const password = document.getElementById('adminPassword').value;
-            
-            if (username === adminCredentials.username && password === adminCredentials.password) {
-                isAdminLoggedIn = true;
-                loginModal.classList.remove('show');
-                adminSection.style.display = 'block';
-                window.scrollTo({
-                    top: adminSection.offsetTop - 80,
-                    behavior: 'smooth'
-                });
-            } else {
-                alert('Username atau password salah!');
-            }
-        });
-
-        logoutBtn.addEventListener('click', function() {
-            isAdminLoggedIn = false;
-            adminSection.style.display = 'none';
-        });
-
-        // Search functionality
-        searchOrder.addEventListener('input', function() {
-            const searchTerm = this.value.toLowerCase();
-            const rows = ordersList.querySelectorAll('tr');
-            
-            rows.forEach(row => {
-                const text = row.textContent.toLowerCase();
-                row.style.display = text.includes(searchTerm) ? '' : 'none';
-            });
-        });
-
-        orderForm.addEventListener('submit', function(e) {
+        
+        // Handle form submission
+        topupForm.addEventListener('submit', function(e) {
             e.preventDefault();
             
-            if (!paymentMethodInput.value) {
-                alert('Silakan pilih metode pembayaran');
-                return;
-            }
-
-            // Get form values
-            const game = document.getElementById('game').value;
-            const product = document.getElementById('product').value;
+            const game = gameSelect.value;
+            const item = itemSelect.value;
+            const price = itemSelect.options[itemSelect.selectedIndex].dataset.price;
             const playerId = document.getElementById('playerId').value;
             const serverId = document.getElementById('serverId').value;
-            const email = document.getElementById('email').value;
-            const paymentMethod = paymentMethodInput.value;
-            const notes = document.getElementById('notes').value;
-
-            // Generate order number
-            const orderNumber = 'ATH-' + Date.now().toString().slice(-6);
-
-            // Calculate price (in a real app, this would come from a database)
-            const priceMap = {
-                '50 Diamond': 'Rp 10.000',
-                '100 Diamond': 'Rp 20.000',
-                '250 Diamond': 'Rp 50.000',
-                '500 Diamond': 'Rp 100.000',
-                '1000 Diamond': 'Rp 200.000'
-            };
-            const total = priceMap[product] || 'Rp 0';
-
-            // Create order object
-            const order = {
-                orderNumber,
-                game,
-                product,
-                playerId,
-                serverId,
-                email,
-                paymentMethod,
-                notes,
-                total,
-                status: 'Pending',
-                date: new Date().toLocaleString()
-            };
-
-            // Add to orders array
-            orders.push(order);
-            updateOrdersTable();
-
-            // Format order details for modal
-            const orderDetails = `
-                <p><strong>No. Pesanan:</strong> ${orderNumber}</p>
+            const payment = document.getElementById('payment').value;
+            const whatsapp = document.getElementById('whatsapp').value;
+            
+            // Show order summary
+            summaryContent.innerHTML = `
                 <p><strong>Game:</strong> ${game}</p>
-                <p><strong>Produk:</strong> ${product}</p>
-                <p><strong>ID Game:</strong> ${playerId}</p>
+                <p><strong>Item:</strong> ${item}</p>
+                <p><strong>Harga:</strong> Rp ${parseInt(price).toLocaleString('id-ID')}</p>
+                <p><strong>ID Player:</strong> ${playerId}</p>
                 ${serverId ? `<p><strong>ID Server:</strong> ${serverId}</p>` : ''}
-                <p><strong>Email:</strong> ${email}</p>
-                <p><strong>Metode Pembayaran:</strong> ${paymentMethod}</p>
-                ${notes ? `<p><strong>Catatan:</strong> ${notes}</p>` : ''}
+                <p><strong>Metode Pembayaran:</strong> ${payment}</p>
+                <p><strong>WhatsApp:</strong> ${whatsapp}</p>
             `;
-
-            // Format WhatsApp message
-            const whatsappMessage = `Halo Admin Atha Store,\n\nSaya sudah melakukan pembayaran untuk:\n\nNo. Pesanan: ${orderNumber}\nGame: ${game}\nProduk: ${product}\nID Game: ${playerId}\n${serverId ? `ID Server: ${serverId}\n` : ''}Metode Pembayaran: ${paymentMethod}\nTotal: ${total}\n\nBerikut bukti transfernya: [LAMPIRKAN BUKTI TRANSFER]\n\nTerima kasih.`;
-            const encodedMessage = encodeURIComponent(whatsappMessage);
-            whatsappLink.href = `https://wa.me/6281910545769?text=${encodedMessage}`;
-
-            // Update modal content
-            modalOrderDetails.innerHTML = orderDetails;
-            modalPaymentNumber.textContent = '081910545769';
-            modalPaymentMethod.textContent = paymentMethod;
-            modalTotal.textContent = total;
-
-            // Show modal
-            orderModal.classList.add('show');
-
-            // Reset form
-            orderForm.reset();
-            paymentMethods.forEach(m => m.classList.remove('selected'));
-            paymentMethodInput.value = '';
+            
+            orderSummary.style.display = 'block';
+            confirmation.style.display = 'block';
+            paymentDetails.style.display = 'none';
+            
+            // Scroll to summary
+            orderSummary.scrollIntoView({ behavior: 'smooth' });
+            
+            // Store order data temporarily
+            topupForm.dataset.tempOrder = JSON.stringify({
+                game, item, price, playerId, serverId, payment, whatsapp
+            });
         });
-
-        // Update orders table
-        function updateOrdersTable() {
+        
+        // Confirm order button
+        confirmBtn.addEventListener('click', function() {
+            const orderData = JSON.parse(topupForm.dataset.tempOrder);
+            
+            // Add to orders list
+            orders.push({
+                ...orderData,
+                date: new Date().toISOString(),
+                status: 'pending'
+            });
+            
+            // Save to localStorage
+            localStorage.setItem('athaGameshopOrders', JSON.stringify(orders));
+            
+            // Show payment details
+            orderSummary.style.display = 'block';
+            confirmation.style.display = 'none';
+            paymentDetails.style.display = 'block';
+            totalPayment.textContent = `Rp ${parseInt(orderData.price).toLocaleString('id-ID')}`;
+            
+            // Scroll to payment details
+            paymentDetails.scrollIntoView({ behavior: 'smooth' });
+            
+            // Reset form
+            topupForm.reset();
+            
+            // Generate WhatsApp message
+            const whatsappMessage = `Halo Admin Atha GameShop, saya sudah melakukan pembayaran dengan detail berikut:%0A%0ANama: Customer%0AGame: ${orderData.game}%0AItem: ${orderData.item}%0AID Player: ${orderData.playerId}${orderData.serverId ? `%0AID Server: ${orderData.serverId}` : ''}%0ANominal Transfer: Rp ${parseInt(orderData.price).toLocaleString('id-ID')}%0AMetode: ${orderData.payment}%0A%0ABerikut bukti transfernya: [Upload bukti transfer]`;
+            
+            // Add WhatsApp link
+            const whatsappLink = document.createElement('a');
+            whatsappLink.href = `https://wa.me/6281910545769?text=${whatsappMessage}`;
+            whatsappLink.className = 'btn btn-primary';
+            whatsappLink.textContent = 'Kirim Bukti ke WhatsApp';
+            whatsappLink.target = '_blank';
+            whatsappLink.style.marginTop = '15px';
+            whatsappLink.style.display = 'inline-block';
+            
+            const existingLink = paymentDetails.querySelector('a');
+            if (existingLink) {
+                paymentDetails.replaceChild(whatsappLink, existingLink);
+            } else {
+                paymentDetails.appendChild(whatsappLink);
+            }
+        });
+        
+        // Edit order button
+        editBtn.addEventListener('click', function() {
+            orderSummary.style.display = 'none';
+        });
+        
+        // Admin login
+        loginAdmin.addEventListener('click', function() {
+            if (adminPassword.value === ADMIN_PASSWORD) {
+                adminContent.style.display = 'block';
+                renderOrdersTable();
+            } else {
+                alert('Password salah!');
+            }
+        });
+        
+        // Render orders table
+        function renderOrdersTable() {
             ordersList.innerHTML = '';
-            orders.forEach(order => {
+            
+            if (orders.length === 0) {
+                const row = document.createElement('tr');
+                row.innerHTML = `<td colspan="10" style="text-align: center;">Tidak ada pesanan</td>`;
+                ordersList.appendChild(row);
+                return;
+            }
+            
+            orders.forEach((order, index) => {
                 const row = document.createElement('tr');
                 row.innerHTML = `
-                    <td>${order.orderNumber}</td>
+                    <td>${index + 1}</td>
                     <td>${order.game}</td>
-                    <td>${order.product}</td>
+                    <td>${order.item}</td>
                     <td>${order.playerId}</td>
                     <td>${order.serverId || '-'}</td>
-                    <td>${order.email}</td>
-                    <td>${order.paymentMethod}</td>
-                    <td class="status-${order.status.toLowerCase()}">${order.status}</td>
-                    <td class="action-buttons">
-                        <button class="btn btn-success btn-sm" data-order="${order.orderNumber}">Berhasil</button>
-                        <button class="btn btn-danger btn-sm" data-order="${order.orderNumber}">Gagal</button>
+                    <td>${order.whatsapp}</td>
+                    <td>${order.payment}</td>
+                    <td>Rp ${parseInt(order.price).toLocaleString('id-ID')}</td>
+                    <td>
+                        <span class="status-btn ${order.status === 'completed' ? 'success' : 'danger'}">
+                            ${order.status === 'completed' ? 'Berhasil' : 'Pending'}
+                        </span>
+                    </td>
+                    <td>
+                        ${order.status !== 'completed' ? 
+                            `<button class="status-btn success complete-btn" data-index="${index}">Selesai</button>` : 
+                            `<button class="status-btn danger delete-btn" data-index="${index}">Hapus</button>`
+                        }
                     </td>
                 `;
                 ordersList.appendChild(row);
             });
-
-            // Add event listeners to action buttons
-            document.querySelectorAll('.btn-success').forEach(btn => {
+            
+            // Add event listeners to buttons
+            document.querySelectorAll('.complete-btn').forEach(btn => {
                 btn.addEventListener('click', function() {
-                    const orderNum = this.getAttribute('data-order');
-                    updateOrderStatus(orderNum, 'Completed');
+                    const index = parseInt(this.dataset.index);
+                    orders[index].status = 'completed';
+                    localStorage.setItem('athaGameshopOrders', JSON.stringify(orders));
+                    renderOrdersTable();
                 });
             });
-
-            document.querySelectorAll('.btn-danger').forEach(btn => {
+            
+            document.querySelectorAll('.delete-btn').forEach(btn => {
                 btn.addEventListener('click', function() {
-                    const orderNum = this.getAttribute('data-order');
-                    updateOrderStatus(orderNum, 'Failed');
-                });
-            });
-        }
-
-        // Update order status
-        function updateOrderStatus(orderNumber, status) {
-            const orderIndex = orders.findIndex(order => order.orderNumber === orderNumber);
-            if (orderIndex !== -1) {
-                orders[orderIndex].status = status;
-                updateOrdersTable();
-            }
-        }
-
-        // Modal close buttons
-        const closeButtons = document.querySelectorAll('.close-modal');
-        closeButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                this.closest('.modal').classList.remove('show');
-            });
-        });
-
-        // Close modal when clicking outside
-        window.addEventListener('click', function(e) {
-            if (e.target.classList.contains('modal')) {
-                e.target.classList.remove('show');
-            }
-        });
-
-        // Terms and Privacy modals
-        document.getElementById('termsBtn').addEventListener('click', function(e) {
-            e.preventDefault();
-            document.getElementById('termsModal').classList.add('show');
-        });
-
-        document.getElementById('privacyBtn').addEventListener('click', function(e) {
-            e.preventDefault();
-            document.getElementById('privacyModal').classList.add('show');
-        });
-
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                if (this.getAttribute('href') !== '#') {
-                    e.preventDefault();
-                    const targetId = this.getAttribute('href');
-                    const targetElement = document.querySelector(targetId);
-                    
-                    if (targetElement) {
-                        window.scrollTo({
-                            top: targetElement.offsetTop - 80,
-                            behavior: 'smooth'
-                        });
+                    const index = parseInt(this.dataset.index);
+                    if (confirm('Apakah Anda yakin ingin menghapus pesanan ini?')) {
+                        orders.splice(index, 1);
+                        localStorage.setItem('athaGameshopOrders', JSON.stringify(orders));
+                        renderOrdersTable();
                     }
-                }
+                });
             });
-        });
-
-        // Initialize with some sample orders for demo
-        orders = [
-            {
-                orderNumber: 'ATH-123456',
-                game: 'Mobile Legends',
-                product: '100 Diamond',
-                playerId: 'ML12345',
-                serverId: '1234',
-                email: 'pelanggan1@example.com',
-                paymentMethod: 'DANA',
-                notes: '',
-                total: 'Rp 20.000',
-                status: 'Completed',
-                date: '2023-06-15 10:30'
-            },
-            {
-                orderNumber: 'ATH-789012',
-                game: 'Free Fire',
-                product: '500 Diamond',
-                playerId: 'FF98765',
-                serverId: '',
-                email: 'pelanggan2@example.com',
-                paymentMethod: 'GOPAY',
-                notes: 'Mohon segera diproses',
-                total: 'Rp 100.000',
-                status: 'Pending',
-                date: '2023-06-16 14:45'
-            },
-            {
-                orderNumber: 'ATH-345678',
-                game: 'PUBG Mobile',
-                product: '1000 Diamond',
-                playerId: 'PUBG54321',
-                serverId: 'NA',
-                email: 'pelanggan3@example.com',
-                paymentMethod: 'DANA',
-                notes: 'Untuk hadiah ulang tahun',
-                total: 'Rp 200.000',
-                status: 'Failed',
-                date: '2023-06-17 09:15'
-            }
-        ];
-        updateOrdersTable();
+        }
+        
+        // Show admin panel if URL has admin parameter
+        if (window.location.hash === '#admin') {
+            document.getElementById('admin').style.display = 'block';
+        }
     </script>
 </body>
 </html>
